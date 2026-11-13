@@ -1,10 +1,6 @@
 import runSingleInstructions from "json-instruction-single";
 import runDoubleInstructions from "json-instruction-double";
 
-/**
- * Executes the single- and double-target instruction lists against a shared registry.
- * This module deliberately knows nothing about tables or table definitions.
- */
 export const runInstructions = ({
     single = [],
     double = [],
@@ -19,14 +15,19 @@ export const runInstructions = ({
     }
     if (!registry || typeof registry !== "object" || Array.isArray(registry)) {
         throw new TypeError("registry must be an object");
-    }
+    };
+    console.log("aaaaaaaaa : ", single, double);
+
 
     if (single.length > 0) {
         runSingleInstructions(single, registry, showLog);
     }
     if (double.length > 0) {
-        runDoubleInstructions(double, registry);
-    }
+        runDoubleInstructions({
+            instructions: double,
+            registry
+        });
+    };
 
     return registry;
 };
