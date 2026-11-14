@@ -1058,10 +1058,10 @@ var j = {
 		});
 	});
 }, z = ({ single: e = [], double: t = [], registry: n = {}, showLog: r = !1 } = {}) => {
-	if (!Array.isArray(e)) throw TypeError("single instructions must be an array");
+	if (r && console.log("runInstructions : ", e, t), !Array.isArray(e)) throw TypeError("single instructions must be an array");
 	if (!Array.isArray(t)) throw TypeError("double instructions must be an array");
 	if (!n || typeof n != "object" || Array.isArray(n)) throw TypeError("registry must be an object");
-	return console.log("aaaaaaaaa : ", e, t), e.length > 0 && F(e, n, r), t.length > 0 && R({
+	return e.length > 0 && F(e, n, r), t.length > 0 && R({
 		instructions: t,
 		registry: n
 	}), n;

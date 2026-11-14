@@ -16,10 +16,11 @@ const start = () => {
         const spec = runInstructions({
             single: def?.single,
             double: def?.double,
-            registry
+            registry,
+            showLog: false
         });
 
-        console.log("aaaa : ", spec);
+        console.log("aaaa : ", spec?.base.children[0]);
 
         // Pure 1-statement consumption via V5 engine
         // const spec = runInstructions({
