@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json-renderers-run-instructions | From Component Definition to Generated UI Specification</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Canvas Confetti for WOW effect -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --bg-body: #ffffff;
+            --bg-subtle: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            
+            --text-title: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            
+            --primary: #4f46e5;
+            --primary-light: #eef2ff;
+            --primary-glow: rgba(79, 70, 229, 0.25);
+            
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-purple: #8b5cf6;
+            
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.04) 0%, transparent 40%),
+                radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 28px 28px;
+        }
+
+        /* Mouse Glow Spotlight across page */
+        .spotlight-follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, rgba(6, 182, 212, 0.03) 40%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .navbar-brand span {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 5rem 0 4rem;
+            position: relative;
+        }
+
+        .gradient-pill {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            border: 1px solid #c7d2fe;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
+            transition: transform 0.2s ease;
+        }
+        .gradient-pill:hover {
+            transform: scale(1.05);
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 800;
+            color: var(--text-title);
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 3D TILT CARDS */
+        .tilt-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .tilt-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-cyan));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tilt-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px -15px rgba(79, 70, 229, 0.15);
+            border-color: #a5b4fc;
+        }
+
+        .tilt-card:hover::before {
+            opacity: 1;
+        }
+
+        /* STEP NUMBER CIRCLE WITH PULSE */
+        .step-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 800;
+            box-shadow: 0 8px 16px -4px var(--primary-glow);
+            transition: all 0.3s ease;
+        }
+
+        .tilt-card:hover .step-badge {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        /* "IN SIMPLE TERMS" HERO CARD */
+        .simple-terms-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e0e7ff;
+            border-radius: 20px;
+            padding: 2.25rem;
+            box-shadow: 0 25px 50px -12px rgba(79, 70, 229, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .term-badge {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.3rem 0.65rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* INTERACTIVE PLAYGROUND STUDIO */
+        .studio-container {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+        }
+
+        .studio-header {
+            background: #0f172a;
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .studio-code {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            padding: 1.5rem;
+            height: 100%;
+            overflow-x: auto;
+            border-right: 1px solid #1e293b;
+        }
+
+        .studio-preview {
+            background: #ffffff;
+            padding: 2rem;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* BUTTONS WITH POPUP ANIMATION */
+        .btn-magic {
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+            color: white;
+            border: none;
+            padding: 0.85rem 1.85rem;
+            font-weight: 700;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px var(--primary-glow);
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-magic:hover {
+            color: white;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-magic:active {
+            transform: translateY(1px);
+        }
+
+        /* POPUP TOOLTIP HOVER */
+        .hover-pop {
+            display: inline-block;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .hover-pop:hover {
+            transform: translateY(-3px) scale(1.08);
+            color: var(--primary) !important;
+        }
+
+        /* COMPONENT ICON PILLS */
+        .comp-pill {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .comp-pill:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 24px -6px var(--primary-glow);
+        }
+        .comp-pill.active {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ANIMATED PULSE DOT */
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse 1.8s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MOUSE SPOTLIGHT FOLLOWER -->
+    <div class="spotlight-follower" id="spotlight"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-dark d-flex align-items-center gap-2" href="index.html">
+                <span class="badge bg-primary text-white p-2 rounded-3 shadow-sm">
+                    <i class="bi bi-cpu-fill fs-5"></i>
+                </span>
+                <span class="fs-5">json-renderers-run-instructions</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <i class="bi bi-list fs-2 text-dark"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold align-items-lg-center gap-lg-2">
+                    <li class="nav-item"><a class="nav-link text-primary active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="pages/the-story.html">The Story</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="pages/architecture.html">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="pages/samples-showcase.html">Components Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="pages/api-guide.html">API Guide</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-sm btn-outline-primary px-3 rounded-pill fw-bold hover-pop" href="../samples/v15/index.html" target="_blank">
+                            <i class="bi bi-rocket-takeoff-fill me-1 text-primary"></i> Live Launch Pad &nearr;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero text-center text-lg-start">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <div class="gradient-pill mb-3">
+                        <span class="pulse-dot"></span>
+                        <span>Common Execution Engine &bull; Pure JSON-to-DOM</span>
+                    </div>
+                    
+                    <h1 class="hero-title mb-4">
+                        From Component Definition to <br>
+                        <span class="gradient-text">Generated UI Specification</span>
+                    </h1>
+                    
+                    <p class="lead text-secondary mb-4" style="font-size: 1.15rem; font-weight: 400;">
+                        Building a user interface requires more than data. Each component needs a <strong>structure</strong>, a set of <strong>instructions</strong>, and <strong>configuration options</strong> that define how it should be built.
+                    </p>
+
+                    <div class="p-3 bg-light rounded-4 border mb-4">
+                        <p class="text-secondary small mb-0">
+                            <i class="bi bi-info-circle-fill text-primary me-2"></i>
+                            <strong>For example:</strong> Creating a table requires a base table structure, instructions to generate its columns and rows, and optional features such as serial numbers or search.
+                        </p>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+                        <a href="#how-it-works" class="btn btn-magic">
+                            <i class="bi bi-lightning-charge-fill me-1"></i> Explore The 6 Steps
+                        </a>
+                        <a href="#live-studio" class="btn btn-outline-dark px-4 py-2 rounded-3 fw-bold hover-pop" style="height: 52px; display: inline-flex; align-items: center;">
+                            <i class="bi bi-play-circle-fill me-2 text-primary"></i> Live Interactive Studio
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <!-- IN SIMPLE TERMS CARD -->
+                    <div class="simple-terms-card" id="terms-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                <i class="bi bi-stars text-warning fs-4"></i> In Simple Terms
+                            </h4>
+                            <span class="badge bg-primary-subtle text-primary border border-primary px-2 py-1">The Essence</span>
+                        </div>
+                        
+                        <div class="d-flex flex-column gap-3 text-secondary">
+                            <div class="p-3 bg-white rounded-3 border hover-pop shadow-sm">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="term-badge bg-primary text-white">1. Definition</span>
+                                    <span class="fw-bold text-dark">Tells what to build</span>
+                                </div>
+                                <div class="small text-muted">Specifies component identity, base template, and available instructions.</div>
+                            </div>
+
+                            <div class="p-3 bg-white rounded-3 border hover-pop shadow-sm">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="term-badge bg-success text-white">2. Instructions</span>
+                                    <span class="fw-bold text-dark">Tell how to build it</span>
+                                </div>
+                                <div class="small text-muted">Generates columns, rows, matrix elements, and dynamic nodes.</div>
+                            </div>
+
+                            <div class="p-3 bg-white rounded-3 border hover-pop shadow-sm">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="term-badge bg-warning text-dark">3. Options</span>
+                                    <span class="fw-bold text-dark">Customize the result</span>
+                                </div>
+                                <div class="small text-muted">Enables serial numbers, search filters, and action buttons.</div>
+                            </div>
+
+                            <div class="p-3 bg-dark text-white rounded-3 hover-pop shadow">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="term-badge bg-light text-dark fw-bold">The Engine</span>
+                                    <span class="fw-bold text-white">Executes & Returns Spec</span>
+                                </div>
+                                <div class="small text-light opacity-75">Coordinates everything and delivers the finished JSON specification.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- THE SOLUTION HIGHLIGHT BANNER -->
+    <section class="py-5 bg-white border-top border-bottom">
+        <div class="container text-center" style="max-width: 880px;">
+            <span class="badge bg-success-subtle text-success border border-success px-3 py-1 mb-2 fw-bold">
+                <i class="bi bi-check-circle-fill me-1"></i> THE SOLUTION
+            </span>
+            <h2 class="fw-bold text-dark display-6 mb-3">An Instruction Execution Engine</h2>
+            <p class="lead text-secondary">
+                <strong class="text-primary">json-renderers-run-instructions</strong> provides a common execution engine that takes a component definition and transforms it into a completed JSON specification.
+            </p>
+        </div>
+    </section>
+
+    <!-- 6-STEP WORKFLOW WITH 3D TILT CARDS -->
+    <section id="how-it-works" class="py-5 bg-subtle">
+        <div class="container" style="max-width: 1100px;">
+            <div class="text-center mb-5">
+                <span class="gradient-pill mb-2">Deterministic Pipeline</span>
+                <h2 class="fw-bold text-dark display-6">How It Works in 6 Steps</h2>
+                <p class="text-muted">Hover over any card to inspect the phase details.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- STEP 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="tilt-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="step-badge">1</span>
+                            <span class="badge bg-light text-secondary border">Input</span>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Select the Component</h5>
+                        <p class="text-secondary small flex-grow-1">
+                            The application specifies the component using a <strong>main key</strong> and <strong>sub key</strong>.
+                        </p>
+                        <div class="p-2 bg-light rounded-3 border font-mono small text-primary fw-semibold text-center">
+                            table.simple
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="tilt-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="step-badge" style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);">2</span>
+                            <span class="badge bg-light text-secondary border">Catalog</span>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Retrieve Definition</h5>
+                        <p class="text-secondary small flex-grow-1">
+                            The engine retrieves the definition from <code>spec-repo</code>, identifying base spec, instructions, and options.
+                        </p>
+                        <div class="p-2 bg-light rounded-3 border font-mono small text-secondary text-center">
+                            definitions[mainKey]?.[subKey]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="tilt-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="step-badge" style="background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);">3</span>
+                            <span class="badge bg-light text-secondary border">Clone</span>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Prepare Base Spec</h5>
+                        <p class="text-secondary small flex-grow-1">
+                            Creates an independent copy of the base structure via <code>structuredClone</code> as a fresh starting canvas.
+                        </p>
+                        <div class="p-2 bg-light rounded-3 border font-mono small text-secondary text-center">
+                            structuredClone(spec[baseKey])
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="tilt-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="step-badge" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">4</span>
+                            <span class="badge bg-light text-secondary border">Execute</span>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Execute Instructions</h5>
+                        <p class="text-secondary small flex-grow-1">
+                            Passes instructions, base, and data to <code>json-renderers-run-instructions-steps</code> to update the specification tree.
+                        </p>
+                        <div class="p-2 bg-light rounded-3 border font-mono small text-success fw-bold text-center">
+                            runInstructions({ instructions })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="tilt-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="step-badge" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">5</span>
+                            <span class="badge bg-light text-secondary border">Customize</span>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Apply Options</h5>
+                        <p class="text-secondary small flex-grow-1">
+                            Applies selected feature switches (serial numbers, search, actions) to the generated specification.
+                        </p>
+                        <div class="p-2 bg-light rounded-3 border font-mono small text-warning fw-bold text-center">
+                            runOptions({ options })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="tilt-card h-100 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="step-badge" style="background: linear-gradient(135deg, #0f172a 0%, #334155 100%);">6</span>
+                            <span class="badge bg-light text-secondary border">Deliver</span>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-2">Return Specification</h5>
+                        <p class="text-secondary small flex-grow-1">
+                            Returns the completed JSON specification, ready to be passed to <code>jsonToDom</code> for browser mounting!
+                        </p>
+                        <div class="p-2 bg-dark rounded-3 font-mono small text-white fw-bold text-center">
+                            jsonToDom.appendToDom()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE STUDIO: CLIENT WOW FACTOR -->
+    <section id="live-studio" class="py-5 bg-white border-top">
+        <div class="container" style="max-width: 1100px;">
+            <div class="text-center mb-4">
+                <span class="gradient-pill mb-2">Interactive Demo Studio</span>
+                <h2 class="fw-bold text-dark display-6">See the Engine in Action</h2>
+                <p class="text-muted">Choose a component type and click <strong>"Execute Engine"</strong> to watch the magic happen in real time!</p>
+            </div>
+
+            <!-- COMPONENT SELECTOR BUTTONS -->
+            <div class="row g-3 mb-4 justify-content-center">
+                <div class="col-6 col-sm-3 col-md-2">
+                    <div class="comp-pill active" onclick="switchComponent('table')">
+                        <i class="bi bi-table fs-3 text-primary d-block mb-1"></i>
+                        <span>table.simple</span>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 col-md-2">
+                    <div class="comp-pill" onclick="switchComponent('select')">
+                        <i class="bi bi-ui-checks fs-3 text-success d-block mb-1"></i>
+                        <span>select.basic</span>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 col-md-2">
+                    <div class="comp-pill" onclick="switchComponent('card')">
+                        <i class="bi bi-card-heading fs-3 text-warning d-block mb-1"></i>
+                        <span>card.profile</span>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 col-md-2">
+                    <div class="comp-pill" onclick="switchComponent('accordion')">
+                        <i class="bi bi-menu-app fs-3 text-purple d-block mb-1" style="color: var(--accent-purple);"></i>
+                        <span>accordion</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STUDIO BOX -->
+            <div class="studio-container">
+                <div class="studio-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="pulse-dot"></span>
+                        <span class="fw-bold small" id="studio-title">table.simple Execution Studio</span>
+                    </div>
+                    <button class="btn btn-sm btn-light fw-bold px-3 hover-pop shadow-sm" onclick="runStudioDemo()">
+                        <i class="bi bi-play-fill text-primary"></i> Execute Engine
+                    </button>
+                </div>
+                <div class="row g-0">
+                    <div class="col-lg-6">
+                        <div class="studio-code" id="code-display">
+<pre><code>// 1. Select Component Key
+const spec = renderFunc({
+  instructionMainKey: "table",
+  instructionSubKey: "simple",
+  data: {
+    columns: [
+      { key: "id", title: "ID" },
+      { key: "item", title: "Item Name" },
+      { key: "status", title: "Status" }
+    ],
+    data: [
+      { id: "01", item: "Smart Monitor", status: "Active" },
+      { id: "02", item: "Wireless Keyboard", status: "Active" }
+    ]
+  },
+  options: {
+    serial: true,
+    search: { showInput: true }
+  }
+});
+
+// 2. Completed spec returned to jsonToDom!</code></pre>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="studio-preview" id="preview-display">
+                            <div class="text-center text-muted">
+                                <i class="bi bi-arrow-clockwise fs-1 text-primary mb-2 d-block"></i>
+                                <h6 class="fw-bold text-dark">Ready to Execute</h6>
+                                <p class="small mb-3">Click <strong>"Execute Engine"</strong> to run the 6-step lifecycle and render the component.</p>
+                                <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="runStudioDemo()">Run Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ONE ENGINE, MULTIPLE COMPONENTS -->
+    <section class="py-5 bg-subtle border-top">
+        <div class="container" style="max-width: 960px;">
+            <div class="text-center mb-5">
+                <span class="gradient-pill mb-2">Universality</span>
+                <h2 class="fw-bold text-dark display-6">One Engine, Multiple Components</h2>
+                <p class="text-secondary lead">
+                    The component definition and its instructions determine what gets built:
+                </p>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded-4 border hover-pop shadow-sm h-100">
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <i class="bi bi-table fs-3 text-primary"></i>
+                            <h5 class="fw-bold text-dark mb-0">Tables</h5>
+                        </div>
+                        <p class="text-secondary small mb-0">Generates columns and rows with optional search bars, serial numbers, and action buttons.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded-4 border hover-pop shadow-sm h-100">
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <i class="bi bi-menu-app fs-3 text-success"></i>
+                            <h5 class="fw-bold text-dark mb-0">Accordions</h5>
+                        </div>
+                        <p class="text-secondary small mb-0">Multi-panel collapsible accordions built dynamically from data objects.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 bg-white rounded-4 border hover-pop shadow-sm h-100">
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <i class="bi bi-card-heading fs-3 text-warning"></i>
+                            <h5 class="fw-bold text-dark mb-0">Cards & Lists</h5>
+                        </div>
+                        <p class="text-secondary small mb-0">Content cards, profile badges, and itemized data lists with zero manual DOM manipulation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE MAIN RESPONSIBILITY -->
+    <section class="py-5 bg-white border-top">
+        <div class="container" style="max-width: 900px;">
+            <div class="p-4 p-md-5 rounded-4 bg-light border border-2 shadow-sm text-center">
+                <span class="badge bg-dark text-white px-3 py-1 mb-3 fw-bold">ARCHITECTURAL BOUNDARY</span>
+                <h3 class="fw-bold text-dark mb-3">The Main Responsibility</h3>
+                <p class="lead text-secondary mb-4" style="max-width: 740px; margin: 0 auto;">
+                    <code>json-renderers-run-instructions</code> does not define every HTML component itself, nor does its main function directly create browser DOM elements.
+                </p>
+                <div class="p-3 bg-white rounded-3 border d-inline-block text-start mb-3">
+                    <div class="fw-bold text-primary mb-1"><i class="bi bi-shield-check me-2"></i>Its True Responsibility:</div>
+                    <div class="text-secondary small">
+                        To coordinate component definitions, execute their instructions, apply configuration options, and return the resulting JSON specification.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-4 bg-white border-top text-center text-muted small">
+        <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+            <span>&copy; 2026 <strong>json-renderers-run-instructions</strong>. MIT License.</span>
+            <div class="d-flex gap-3">
+                <a href="index.html" class="text-decoration-none text-muted">Home</a>
+                <a href="pages/the-story.html" class="text-decoration-none text-muted">The Story</a>
+                <a href="pages/architecture.html" class="text-decoration-none text-muted">How It Works</a>
+                <a href="pages/samples-showcase.html" class="text-decoration-none text-muted">Gallery</a>
+                <a href="../samples/v15/index.html" class="text-decoration-none text-primary fw-semibold" target="_blank">Launch Pad &nearr;</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT & PARTICLES -->
+    <script>
+        // Mouse Spotlight Tracking
+        const spotlight = document.getElementById('spotlight');
+        window.addEventListener('mousemove', (e) => {
+            spotlight.style.left = e.clientX + 'px';
+            spotlight.style.top = e.clientY + 'px';
+        });
+
+        // Component Definitions for Interactive Studio
+        let currentComponent = 'table';
+
+        const componentsData = {
+            table: {
+                title: "table.simple Execution Studio",
+                code: `// 1. Select Component Key
+const spec = renderFunc({
+  instructionMainKey: "table",
+  instructionSubKey: "simple",
+  data: {
+    columns: [
+      { key: "id", title: "ID" },
+      { key: "item", title: "Item Name" },
+      { key: "status", title: "Status" }
+    ],
+    data: [
+      { id: "#101", item: "Smart Monitor 4K", status: "In Stock" },
+      { id: "#102", item: "Mechanical Keyboard", status: "In Stock" }
+    ]
+  },
+  options: {
+    serial: true,
+    search: { showInput: true }
+  }
+});
+
+// 2. Returns completed JSON spec to jsonToDom!`,
+                preview: `
+                    <div class="w-100">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-success-subtle text-success border border-success">Generated: table.simple</span>
+                            <span class="badge bg-light text-dark border">Options: serial, search</span>
+                        </div>
+                        <input type="text" class="form-control form-control-sm mb-2" placeholder="Search items..." />
+                        <table class="table table-bordered table-sm m-0 bg-white shadow-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Item Name</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="fw-semibold">#101</td>
+                                    <td>Smart Monitor 4K</td>
+                                    <td><span class="badge bg-success-subtle text-success border">In Stock</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td class="fw-semibold">#102</td>
+                                    <td>Mechanical Keyboard</td>
+                                    <td><span class="badge bg-success-subtle text-success border">In Stock</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `
+            },
+            select: {
+                title: "select.basic Execution Studio",
+                code: `// 1. Select Dropdown Definition
+const spec = renderFunc({
+  instructionMainKey: "select",
+  instructionSubKey: "basic",
+  data: {
+    options: [
+      { value: "us", text: "United States" },
+      { value: "eu", text: "European Union" },
+      { value: "in", text: "India" }
+    ]
+  }
+});
+
+// 2. Generates <select> with <option> children!`,
+                preview: `
+                    <div class="w-100">
+                        <span class="badge bg-primary-subtle text-primary border border-primary mb-2">Generated: select.basic</span>
+                        <label class="form-label small fw-bold text-dark">Select Region</label>
+                        <select class="form-select">
+                            <option value="us">United States</option>
+                            <option value="eu">European Union</option>
+                            <option value="in" selected>India</option>
+                        </select>
+                        <small class="text-muted mt-1 d-block">Primitive leaf control built directly from array collection.</small>
+                    </div>
+                `
+            },
+            card: {
+                title: "card.profile Execution Studio",
+                code: `// 1. Select Card Definition
+const spec = renderFunc({
+  instructionMainKey: "card",
+  instructionSubKey: "profile",
+  data: {
+    title: "Client Workspace",
+    description: "Enterprise UI Generation Pipeline",
+    metrics: "99.98% Efficiency"
+  }
+});`,
+                preview: `
+                    <div class="w-100">
+                        <span class="badge bg-warning-subtle text-warning border border-warning mb-2">Generated: card.profile</span>
+                        <div class="card p-3 shadow-sm border">
+                            <h5 class="fw-bold text-dark mb-1">Client Workspace</h5>
+                            <p class="small text-muted mb-2">Enterprise UI Generation Pipeline</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success text-white">99.98% Efficiency</span>
+                                <button class="btn btn-sm btn-primary">Open</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            accordion: {
+                title: "accordion Execution Studio",
+                code: `// 1. Select Accordion Definition
+const spec = renderFunc({
+  instructionMainKey: "accordion",
+  instructionSubKey: "multi",
+  data: {
+    items: [
+      { title: "What is spec-repo?", body: "Stores component definitions and base specs." },
+      { title: "What is json-renderers-run-instructions-steps?", body: "Executes instruction arrays." }
+    ]
+  }
+});`,
+                preview: `
+                    <div class="w-100">
+                        <span class="badge bg-purple-subtle text-purple border mb-2" style="background:#f3e8ff; color:#7c3aed;">Generated: accordion</span>
+                        <div class="accordion" id="demoAcc">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button py-2 small fw-bold" type="button">What is spec-repo?</button>
+                                </h2>
+                                <div class="accordion-body small text-muted py-2">Stores component definitions and base specs.</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function switchComponent(key) {
+            currentComponent = key;
+            document.querySelectorAll('.comp-pill').forEach(p => p.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const item = componentsData[key];
+            document.getElementById('studio-title').innerText = item.title;
+            document.getElementById('code-display').innerHTML = `<pre><code>${escapeHtml(item.code)}</code></pre>`;
+            document.getElementById('preview-display').innerHTML = `
+                <div class="text-center text-muted">
+                    <i class="bi bi-arrow-clockwise fs-1 text-primary mb-2 d-block"></i>
+                    <h6 class="fw-bold text-dark">${item.title} Loaded</h6>
+                    <p class="small mb-3">Click <strong>"Execute Engine"</strong> to run and render.</p>
+                    <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="runStudioDemo()">Run Now</button>
+                </div>
+            `;
+        }
+
+        function runStudioDemo() {
+            const item = componentsData[currentComponent];
+            const preview = document.getElementById('preview-display');
+            
+            // Trigger Confetti Celebration!
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 40,
+                    spread: 60,
+                    origin: { y: 0.7 }
+                });
+            }
+
+            preview.innerHTML = `
+                <div class="animate__animated animate__fadeIn">
+                    <div class="alert alert-success py-2 px-3 small mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span><strong>Engine Finished:</strong> 6-step lifecycle completed with zero DOM lag!</span>
+                    </div>
+                    ${item.preview}
+                </div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+
+</html>

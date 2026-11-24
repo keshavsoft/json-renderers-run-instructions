@@ -48,10 +48,42 @@
             z-index: 9999;
         }
 
+        
+        /* CLEAN MODERN NAVBAR */
         .navbar {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        .navbar-brand {
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+            font-weight: 800;
+        }
+        .navbar-nav .nav-link {
+            font-size: 0.9rem;
+            color: #475569;
+            padding: 0.45rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .navbar-nav .nav-link:hover {
+            color: var(--primary);
+            background: #f1f5f9;
+        }
+        .navbar-nav .nav-link.active {
+            color: var(--primary) !important;
+            font-weight: 700;
+            background: var(--primary-light);
+        }
+        .nav-launch-btn {
+            font-size: 0.84rem;
+            padding: 0.45rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
         }
 
         .story-header {
@@ -109,28 +141,29 @@
 
     <div class="spotlight-follower" id="spotlight"></div>
 
-    <!-- NAVBAR -->
+        <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand text-dark d-flex align-items-center gap-2" href="../index.html">
-                <span class="badge bg-primary text-white p-2 rounded-3 shadow-sm">
-                    <i class="bi bi-cpu-fill fs-5"></i>
+        <div class="container-fluid px-lg-4">
+            <a class="navbar-brand text-dark d-flex align-items-center gap-2 text-decoration-none" href="../index.html">
+                <span class="badge bg-primary text-white p-2 rounded-3 shadow-sm d-flex align-items-center justify-content-center">
+                    <i class="bi bi-cpu-fill fs-6"></i>
                 </span>
-                <span class="fw-bold">json-renderers-run-instructions</span>
+                <span>json-renderers-run-instructions</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <i class="bi bi-list fs-2 text-dark"></i>
             </button>
             <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold align-items-lg-center gap-lg-2">
-                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="../index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-primary active" href="the-story.html">The Story</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="architecture.html">How It Works</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="samples-showcase.html">Components Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="api-guide.html">API Guide</a></li>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold align-items-lg-center gap-1">
+                    <li class="nav-item"><a class="nav-link " href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="the-story.html">Story</a></li>
+                    <li class="nav-item"><a class="nav-link " href="architecture.html">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link " href="samples-showcase.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link " href="api-guide.html">API</a></li>
+                    <li class="nav-item"><a class="nav-link text-primary fw-bold" href="playground.html"><i class="bi bi-play-circle-fill me-1"></i>Playground</a></li>
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-sm btn-outline-primary px-3 rounded-pill fw-bold hover-pop" href="../../samples/v15/index.html" target="_blank">
-                            <i class="bi bi-rocket-takeoff-fill me-1 text-primary"></i> Launch Pad &nearr;
+                        <a class="btn btn-outline-primary nav-launch-btn" href="../../samples/v15/index.html" target="_blank">
+                            <i class="bi bi-rocket-takeoff-fill me-1"></i> Launch Pad &nearr;
                         </a>
                     </li>
                 </ul>
@@ -179,7 +212,7 @@
                 </p>
                 <ol class="text-secondary ps-3">
                     <li class="mb-2"><strong>1. Select the Component:</strong> The application specifies the component using a main key and sub key (e.g. <code>table.simple</code>).</li>
-                    <li class="mb-2"><strong>2. Retrieve the Definition:</strong> The engine retrieves the corresponding definition from <code>spec-repo</code>. The definition identifies the base specification, required instructions, and available options.</li>
+                    <li class="mb-2"><strong>2. Retrieve the Definition:</strong> The engine retrieves the corresponding definition from <code>declarative-definitions and declarative-spec</code>. The definition identifies the base specification, required instructions, and available options.</li>
                     <li class="mb-2"><strong>3. Prepare the Base Specification:</strong> The engine creates an independent copy of the selected base structure. This becomes the starting point for building the component.</li>
                     <li class="mb-2"><strong>4. Execute the Instructions:</strong> The engine passes the instructions, base structure, and input data to <code>json-renderers-run-instructions-steps</code>. These instructions update the base specification according to the selected component definition.</li>
                     <li class="mb-2"><strong>5. Apply Configuration Options:</strong> The engine passes the selected options to <code>runOptions</code>. Supported features are applied to the generated specification.</li>
@@ -264,3 +297,6 @@
     </script>
 </body>
 </html>
+
+
+

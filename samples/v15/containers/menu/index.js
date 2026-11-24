@@ -1,5 +1,5 @@
 import menuData from "./items.json" with { type: "json" };
-import "../../../../docs/dist/v14/min.js";
+import "../../../../docs/dist/v15/min.js";
 
 const start = () => {
     try {
@@ -37,3 +37,4 @@ const start = () => {
 };
 
 window.addEventListener("DOMContentLoaded", start);
+

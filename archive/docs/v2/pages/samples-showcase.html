@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Engine, Multiple Components | Components Gallery</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --font-main: 'Plus Jakarta Sans', system-ui, sans-serif;
+            --primary: #4f46e5;
+            --text-title: #0f172a;
+            --text-body: #334155;
+            --border: #e2e8f0;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-body);
+            font-family: var(--font-main);
+            line-height: 1.65;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .spotlight-follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header {
+            padding: 4.5rem 0 3rem;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .component-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            transition: all 0.25s ease;
+        }
+
+        .component-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px -10px rgba(79, 70, 229, 0.12);
+            border-color: #cbd5e1;
+        }
+
+        .sample-pill {
+            background: #f8fafc;
+            color: #1e293b;
+            border: 1px solid var(--border);
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: all 0.2s ease;
+        }
+
+        .sample-pill:hover {
+            background: #e2e8f0;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .hover-pop {
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+        .hover-pop:hover {
+            transform: scale(1.05);
+            color: var(--primary) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="spotlight-follower" id="spotlight"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-dark d-flex align-items-center gap-2" href="../index.html">
+                <span class="badge bg-primary text-white p-2 rounded-3 shadow-sm">
+                    <i class="bi bi-cpu-fill fs-5"></i>
+                </span>
+                <span class="fw-bold">json-renderers-run-instructions</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <i class="bi bi-list fs-2 text-dark"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold align-items-lg-center gap-lg-2">
+                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="the-story.html">The Story</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="architecture.html">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link text-primary active" href="samples-showcase.html">Components Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark hover-pop" href="api-guide.html">API Guide</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-sm btn-outline-primary px-3 rounded-pill fw-bold hover-pop" href="../../samples/v15/index.html" target="_blank">
+                            <i class="bi bi-rocket-takeoff-fill me-1 text-primary"></i> Launch Pad &nearr;
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="page-header text-center">
+        <div class="container" style="max-width: 820px;">
+            <span class="badge bg-primary-subtle text-primary border border-primary px-3 py-1 mb-2 fw-bold">Supported UI Structures</span>
+            <h1 class="display-5 fw-bold text-dark mb-3">One Engine, Multiple Components</h1>
+            <p class="lead text-secondary">
+                The same execution flow builds tables, accordions, cards, lists, select dropdowns, and other supported UI structures. The component definition and its instructions determine what gets built.
+            </p>
+        </div>
+    </header>
+
+    <!-- MAIN GALLERY -->
+    <main class="py-5 bg-white">
+        <div class="container" style="max-width: 900px;">
+
+            <!-- TABLES -->
+            <div class="component-card">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-table fs-4 text-primary"></i>
+                    <h4 class="fw-bold text-dark mb-0">Tables</h4>
+                </div>
+                <p class="text-secondary">
+                    Takes a base table structure, executes instructions to generate columns and rows from input data, and applies optional features like search boxes, serial numbers, and action buttons.
+                </p>
+                <div class="d-flex flex-wrap gap-2 pt-2">
+                    <a class="sample-pill" href="../../samples/v15/containers/table/simple/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-primary"></i> table.simple &nearr;
+                    </a>
+                    <a class="sample-pill" href="../../samples/v15/containers/table/withFooter/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-primary"></i> table.withFooter &nearr;
+                    </a>
+                    <a class="sample-pill" href="../../samples/v15/containers/table/headerOnly/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-primary"></i> table.headerOnly &nearr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- SELECT & DATALIST -->
+            <div class="component-card">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-ui-checks fs-4 text-success"></i>
+                    <h4 class="fw-bold text-dark mb-0">Select Components & DataLists</h4>
+                </div>
+                <p class="text-secondary">
+                    Renders primitive option collections and dropdown elements directly from data arrays without manual HTML creation.
+                </p>
+                <div class="d-flex flex-wrap gap-2 pt-2">
+                    <a class="sample-pill" href="../../samples/v15/direct/select/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-success"></i> direct.select &nearr;
+                    </a>
+                    <a class="sample-pill" href="../../samples/v15/direct/dataList/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-success"></i> direct.dataList &nearr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARDS & ACCORDIONS -->
+            <div class="component-card">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-card-heading fs-4 text-warning"></i>
+                    <h4 class="fw-bold text-dark mb-0">Cards & Accordions</h4>
+                </div>
+                <p class="text-secondary">
+                    Builds cards with headers, bodies, actions, and multi-section collapsible accordion panels.
+                </p>
+                <div class="d-flex flex-wrap gap-2 pt-2">
+                    <a class="sample-pill" href="../../samples/v15/containers/card/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-warning"></i> container.card &nearr;
+                    </a>
+                    <a class="sample-pill" href="../../samples/v15/containers/accordion/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-warning"></i> container.accordion &nearr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- FORMS, TABS, MODALS -->
+            <div class="component-card">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-window fs-4 text-danger"></i>
+                    <h4 class="fw-bold text-dark mb-0">Forms, Tabs & Modals</h4>
+                </div>
+                <p class="text-secondary">
+                    Supports complex structured UI components including responsive forms, tab panels, and popup dialog modals.
+                </p>
+                <div class="d-flex flex-wrap gap-2 pt-2">
+                    <a class="sample-pill" href="../../samples/v15/containers/form/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-danger"></i> container.form &nearr;
+                    </a>
+                    <a class="sample-pill" href="../../samples/v15/containers/tab/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-danger"></i> container.tab &nearr;
+                    </a>
+                    <a class="sample-pill" href="../../samples/v15/containers/modal/index.html" target="_blank">
+                        <i class="bi bi-folder-fill text-danger"></i> container.modal &nearr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- COMPOUND & COMPOSITE -->
+            <div class="component-card">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-layers-fill fs-4 text-purple" style="color:#7c3aed;"></i>
+                    <h4 class="fw-bold text-dark mb-0">Composite Master-Detail Systems</h4>
+                </div>
+                <p class="text-secondary">
+                    Combines multiple generated specifications into synchronized Master-Detail interfaces where clicking a table row edits data in a form with live autocomplete.
+                </p>
+                <div class="d-flex flex-wrap gap-2 pt-2">
+                    <a class="sample-pill bg-warning-subtle text-dark border-warning fw-bold" href="../../samples/v15/composite/index.html" target="_blank">
+                        <i class="bi bi-stars text-warning"></i> composite master-detail &nearr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- NAVIGATION -->
+            <div class="d-flex justify-content-between align-items-center pt-3">
+                <a href="architecture.html" class="btn btn-outline-secondary px-4 py-2 rounded-3 fw-bold hover-pop">
+                    &larr; How It Works
+                </a>
+                <a href="api-guide.html" class="btn btn-primary px-4 py-2 rounded-3 fw-bold hover-pop shadow-sm">
+                    API Guide & Reference &rarr;
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-4 bg-white border-top text-center text-muted small">
+        <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+            <span>&copy; 2026 <strong>json-renderers-run-instructions</strong>. MIT License.</span>
+            <div class="d-flex gap-3">
+                <a href="../index.html" class="text-decoration-none text-muted">Home</a>
+                <a href="the-story.html" class="text-decoration-none text-muted">The Story</a>
+                <a href="architecture.html" class="text-decoration-none text-muted">How It Works</a>
+                <a href="samples-showcase.html" class="text-decoration-none text-muted">Showcase</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const spotlight = document.getElementById('spotlight');
+        window.addEventListener('mousemove', (e) => {
+            spotlight.style.left = e.clientX + 'px';
+            spotlight.style.top = e.clientY + 'px';
+        });
+    </script>
+</body>
+</html>
