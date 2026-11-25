@@ -1,6 +1,6 @@
 {
   "name": "json-renderers-run-instructions",
-  "version": "1.16.1",
+  "version": "1.17.1",
   "description": "Reusable instruction execution and JSON-to-DOM mounting runtime for JSON renderers",
   "type": "module",
   "main": "src/index.js",

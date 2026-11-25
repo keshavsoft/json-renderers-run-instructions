@@ -9346,38 +9346,44 @@ var Ni = (e, t) => {
 	if (e[t] !== void 0) return e[t];
 	let n = `show${t.charAt(0).toUpperCase()}${t.slice(1)}`;
 	return e[n] === void 0 ? null : e[n];
-}, Ri = (e, t) => {
-	let n = Sn[e];
-	if (n) for (let e of n) {
-		if (e.skipIf && xi(t, e.skipIf, { returnArray: !0 }).length > 0) continue;
-		let n = r[e.templateKey];
-		try {
-			Fi({ base: t }, e.destinationPath, n);
-		} catch {}
+}, Ri = (e) => e === !0 || Ii(e), zi = (e, t) => Ii(e) ? Object.entries(e).filter(([e]) => e !== "initialize").filter(([e]) => t === !0 || t[e] === !0).map(([e, t]) => ({
+	switchKey: e,
+	instructionKey: t
+})) : [], Bi = (e, t) => e.initialize ? t === !0 || zi(e, t).length > 0 : !1, Vi = (e, t) => !t.destinationPath?.jsonPath || xi(e, t.destinationPath.jsonPath, { returnArray: !0 }).length > 0, Hi = (e, t) => t.skipIf ? xi(e, t.skipIf, { returnArray: !0 }).length > 0 : !1, Ui = (e, t, n = !1) => {
+	let i = Sn[e];
+	if (!Array.isArray(i)) n && console.warn(`Unknown option instruction: ${e}`);
+	else for (let a of i) {
+		if (Hi(t, a) || !Vi(t, a)) continue;
+		let i = r[a.templateKey];
+		i === void 0 ? n && console.warn(`Unknown option template: ${a.templateKey}`) : (Fi({ base: t }, a.destinationPath, i), n && console.log(a.narration ?? `Applied option instruction: ${e}`));
 	}
-}, zi = ({ options: e = {}, optionDefs: t = {}, base: n, showLog: r = !1 } = {}) => {
+}, Wi = ({ featureKey: e, featureSwitches: t, featureRequest: n, base: r, showLog: i }) => {
+	let a = zi(t, n);
+	Bi(t, n) && Ui(t.initialize, r, i);
+	for (let { switchKey: t, instructionKey: n } of a) i && console.log(`Enabled switch: ${e}.${t}`), Ui(n, r, i);
+}, Gi = ({ options: e = {}, optionDefs: t = {}, base: n, showLog: r = !1 } = {}) => {
 	if (!n || !Ii(e) || !Ii(t)) return n;
-	console.log("optionDefs : ", t);
-	for (let [r, i] of Object.entries(t)) {
-		if (!Ii(i)) continue;
-		let t = Li(e, r);
-		if (console.log("userFeature : ", t), !t) continue;
-		let a = typeof t == "boolean" && t === !0, o = Ii(t);
-		if ((a || o) && Object.entries(i).some(([e]) => e !== "initialize" && (a || t[e] === !0))) {
-			i.initialize && Ri(i.initialize, n);
-			for (let [e, r] of Object.entries(i)) console.log("switchKey : ", e), e !== "initialize" && (a || t[e] === !0) && Ri(r, n);
-		}
+	for (let [i, a] of Object.entries(t)) {
+		if (!Ii(a)) continue;
+		let t = Li(e, i);
+		console.log("featureRequest : ", t), Ri(t) && Wi({
+			featureKey: i,
+			featureSwitches: a,
+			featureRequest: t,
+			base: n,
+			showLog: r
+		});
 	}
 	return n;
-}, Bi = {
+}, Ki = {
 	name: "json-renderers-run-instructions",
 	version: "1.16.1"
-}, Vi = (e) => {
+}, qi = (e) => {
 	typeof globalThis < "u" && e && (globalThis.ks ??= {}, globalThis.ks.jsonRenderers ??= {}, globalThis.ks.jsonRenderers.runInstructions ??= {}, globalThis.ks.jsonRenderers.runInstructions.render = {
-		meta: Bi,
+		meta: Ki,
 		renderFunc: e
 	});
-}, Hi = ({ instructionMainKey: t, instructionSubKey: r, data: i, options: a, showLog: o = !1 } = {}) => {
+}, Ji = ({ instructionMainKey: t, instructionSubKey: r, data: i, options: a, showLog: o = !1 } = {}) => {
 	let s = e[t]?.[r];
 	if (!s) throw Error(`Definition not found: ${t}.${r}`);
 	let c = structuredClone(n[s.baseFromSpec]);
@@ -9386,7 +9392,7 @@ var Ni = (e, t) => {
 		base: c,
 		data: i,
 		showLog: o
-	}), zi({
+	}), Gi({
 		options: a,
 		optionDefs: s.options && typeof s.options == "object" ? s.options : e[t]?.options ?? {},
 		base: c,
@@ -9394,5 +9400,5 @@ var Ni = (e, t) => {
 		showLog: o
 	}), c;
 };
-Vi(Hi);
-export { Hi as default };
+qi(Ji);
+export { Ji as default };

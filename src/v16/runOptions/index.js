@@ -5,11 +5,17 @@ import instructions from "declarative-instructions";
 
 import writePath from "json-write-path";
 import { query } from "jsonpathly";
+import applyFeature from "./applyFeature.js";
+import {
+    getFeatureRequest,
+    isEnabledFeature,
+    isObject
+} from "./helpers.js";
 
-const isObject = value => value !== null && typeof value === "object" && !Array.isArray(value);
+const isObjectCheck = value => value !== null && typeof value === "object" && !Array.isArray(value);
 
 const getFeatureOptions = (options, featureKey) => {
-    if (!isObject(options)) return null;
+    if (!isObjectCheck(options)) return null;
     if (options[featureKey] !== undefined) return options[featureKey];
     const prefixed = `show${featureKey.charAt(0).toUpperCase()}${featureKey.slice(1)}`;
     if (options[prefixed] !== undefined) return options[prefixed];
@@ -42,46 +48,23 @@ const runOptions = ({
 } = {}) => {
     if (!base || !isObject(options) || !isObject(optionDefs)) {
         return base;
-    };
-    console.log("optionDefs : ", optionDefs);
-
+    }
 
     for (const [featureKey, featureSwitches] of Object.entries(optionDefs)) {
         if (!isObject(featureSwitches)) continue;
 
-        const userFeature = getFeatureOptions(options, featureKey);
+        const featureRequest = getFeatureRequest(options, featureKey);
+        console.log("featureRequest : ", featureRequest);
 
-        console.log("userFeature : ", userFeature);
+        if (!isEnabledFeature(featureRequest)) continue;
 
-        if (!userFeature) continue;
-
-
-        const isBool = typeof userFeature === "boolean" && userFeature === true;
-        const isObj = isObject(userFeature);
-        if (!isBool && !isObj) continue;
-
-        const hasActiveSwitch = Object.entries(featureSwitches).some(
-            ([switchKey]) => switchKey !== "initialize" && (isBool || userFeature[switchKey] === true)
-        );
-        if (!hasActiveSwitch) continue;
-
-        // 1. Run initialize option if present (e.g. "searchFrame")
-        if (featureSwitches.initialize) {
-            applyOption(featureSwitches.initialize, base);
-        }
-
-        // 2. Run enabled switch options (e.g. "searchLabel", "searchInput")
-        for (const [switchKey, instructionKey] of Object.entries(featureSwitches)) {
-            console.log("switchKey : ", switchKey);
-
-
-            if (switchKey === "initialize") continue;
-
-            const isEnabled = isBool || userFeature[switchKey] === true;
-            if (isEnabled) {
-                applyOption(instructionKey, base);
-            }
-        }
+        applyFeature({
+            featureKey,
+            featureSwitches,
+            featureRequest,
+            base,
+            showLog
+        });
     }
 
     return base;
