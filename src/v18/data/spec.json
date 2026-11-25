@@ -1,0 +1,1605 @@
+{
+  "buildHeader": {
+    "tagName": "th",
+    "textContent": "${columnName}",
+    "attributes": {
+      "class": "py-3 px-3 fw-semibold text-uppercase small"
+    }
+  },
+  "tableSearchBar": {
+    "tagName": "div",
+    "attributes": {
+      "class": "row mb-3 align-items-center"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "col-md-4 d-flex align-items-center"
+        },
+        "children": [
+          {
+            "tagName": "h6",
+            "attributes": {
+              "class": "mb-0 fw-semibold text-secondary",
+              "id": "table-title"
+            },
+            "textContent": "Items"
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "col-md-4 text-center d-flex align-items-center justify-content-center"
+        },
+        "children": [
+          {
+            "tagName": "span",
+            "attributes": {
+              "id": "search-feedback",
+              "class": "badge bg-white text-secondary border px-3 py-2 small fw-normal shadow-sm"
+            },
+            "textContent": "Showing all records"
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "col-md-4"
+        },
+        "children": [
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "input-group"
+            },
+            "children": [
+              {
+                "tagName": "span",
+                "attributes": {
+                  "class": "input-group-text bg-white"
+                },
+                "children": [
+                  {
+                    "tagName": "i",
+                    "attributes": {
+                      "class": "bi bi-search"
+                    },
+                    "textContent": "🔍"
+                  }
+                ]
+              },
+              {
+                "tagName": "input",
+                "attributes": {
+                  "type": "text",
+                  "id": "tableSearch",
+                  "class": "form-control",
+                  "placeholder": "Search table..."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "buildBodyTr": {
+    "tagName": "tr",
+    "attributes": {
+      "class": "align-middle"
+    },
+    "children": []
+  },
+  "buildColGroup": {
+    "tagName": "col",
+    "attributes": {
+      "width": "${width}"
+    }
+  },
+  "tableHeaderClickable": {
+    "tagName": "th",
+    "attributes": {
+      "class": "py-3 px-3 fw-semibold text-uppercase small user-select-none",
+      "role": "button",
+      "tabindex": "0",
+      "style": "cursor: pointer;",
+      "data-column": "${columnName}",
+      "data-sort-order": "none",
+      "data-role": "sortable-header"
+    },
+    "children": [
+      {
+        "tagName": "span",
+        "attributes": {
+          "class": "d-inline-flex align-items-center gap-2"
+        },
+        "children": [
+          {
+            "tagName": "span",
+            "textContent": "${columnName}"
+          },
+          {
+            "tagName": "span",
+            "textContent": "⇅",
+            "attributes": {
+              "class": "small opacity-75",
+              "data-role": "sort-indicator"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "buildFooter": {
+    "tagName": "td",
+    "children": [
+      {
+        "tagName": "input",
+        "attributes": {
+          "type": "text",
+          "placeholder": "enter ${columnName}",
+          "name": "${columnName}",
+          "id": "${columnName}",
+          "list": "${columnName}",
+          "class": "form-control"
+        }
+      }
+    ]
+  },
+  "buildBodyCell": {
+    "tagName": "td",
+    "textContent": "${rowValue}",
+    "attributes": {
+      "class": "py-3 px-3 text-secondary"
+    }
+  },
+  "button": {
+    "tagName": "button",
+    "textContent": "${columnName}",
+    "attributes": {
+      "class": "btn btn-primary btn-sm"
+    }
+  },
+  "buttonCell": {
+    "tagName": "td",
+    "attributes": {
+      "class": "py-2 px-3 text-center"
+    },
+    "children": [
+      {
+        "tagName": "button",
+        "textContent": "${agg:count}",
+        "attributes": {
+          "class": "btn btn-primary btn-sm"
+        }
+      }
+    ]
+  },
+  "optionsButtonCell": {
+    "tagName": "td",
+    "attributes": {
+      "class": "py-2 px-3 text-center"
+    },
+    "children": [
+      {
+        "tagName": "button",
+        "textContent": "show",
+        "attributes": {
+          "class": "btn btn-primary btn-sm ks-btn-show"
+        }
+      }
+    ]
+  },
+  "buildOption": {
+    "tagName": "option",
+    "textContent": "${rowValue}",
+    "attributes": {
+      "value": "${rowValue}"
+    }
+  },
+  "buildSelect": {
+    "tagName": "select",
+    "attributes": {
+      "id": "${columnName}",
+      "name": "${columnName}",
+      "data-name": "${columnName}",
+      "class": "form-select shadow-sm mb-3"
+    },
+    "children": []
+  },
+  "buildDataList": {
+    "tagName": "datalist",
+    "attributes": {
+      "id": "${columnName}",
+      "data-name": "${columnName}"
+    },
+    "children": []
+  },
+  "buildFormField": {
+    "tagName": "div",
+    "attributes": {
+      "class": "mb-3"
+    },
+    "children": [
+      {
+        "tagName": "label",
+        "textContent": "${columnName}",
+        "attributes": {
+          "for": "${columnName}",
+          "class": "form-label fw-semibold text-capitalize"
+        }
+      },
+      {
+        "tagName": "input",
+        "attributes": {
+          "type": "text",
+          "id": "${columnName}",
+          "name": "${columnName}",
+          "placeholder": "Enter ${columnName}...",
+          "class": "form-control"
+        }
+      }
+    ]
+  },
+  "emptyCell": {
+    "tagName": "td",
+    "children": []
+  },
+  "headerSerialCell": {
+    "tagName": "th",
+    "textContent": "#",
+    "attributes": {
+      "class": "py-3 px-3 fw-semibold text-uppercase small"
+    }
+  },
+  "colGroupForSerial": {
+    "tagName": "col",
+    "attributes": {
+      "width": "50px"
+    }
+  },
+  "colGroupForOption": {
+    "tagName": "col",
+    "attributes": {
+      "width": "100px"
+    }
+  },
+  "headerForOption": {
+    "tagName": "th",
+    "textContent": "options",
+    "attributes": {
+      "class": "py-3 px-3 fw-semibold text-uppercase small"
+    }
+  },
+  "tdWithButtonSaveWarning": {
+    "tagName": "td",
+    "attributes": {
+      "class": "py-2 px-3 text-center"
+    },
+    "children": [
+      {
+        "tagName": "button",
+        "textContent": "save",
+        "attributes": {
+          "class": "btn btn-warning btn-sm ks-btn-save"
+        }
+      }
+    ]
+  },
+  "tableSearch": {
+    "tagName": "div",
+    "attributes": {
+      "class": "row mb-3 justify-content-end"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "col-md-4"
+        },
+        "children": [
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "input-group"
+            },
+            "children": [
+              {
+                "tagName": "span",
+                "attributes": {
+                  "class": "input-group-text bg-white"
+                },
+                "children": [
+                  {
+                    "tagName": "i",
+                    "attributes": {
+                      "class": "bi bi-search"
+                    },
+                    "textContent": "🔍"
+                  }
+                ]
+              },
+              {
+                "tagName": "input",
+                "attributes": {
+                  "type": "text",
+                  "id": "tableSearch",
+                  "class": "form-control",
+                  "placeholder": "Search table..."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tableWithSearch": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "table-parent",
+      "id": "table-withSearch-id"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "row mb-3 align-items-center",
+          "data-role": "search-toolbar"
+        },
+        "children": [
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "col-md-4 d-flex align-items-center",
+              "data-role": "search-label-slot"
+            },
+            "children": []
+          },
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "col-md-4 text-center d-flex align-items-center justify-content-center",
+              "data-role": "search-helper-slot"
+            },
+            "children": []
+          },
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "col-md-4",
+              "data-role": "search-input-slot"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "id": "table-content-container"
+        },
+        "children": [
+          {
+            "tagName": "table",
+            "attributes": {
+              "class": "table table-hover table-striped align-middle border mb-0",
+              "id": "table-withSearch-table-id"
+            },
+            "children": [
+              {
+                "tagName": "colgroup",
+                "attributes": {
+                  "data-role": "table-colgroup",
+                  "id": "table-simple-colgroup-id"
+                },
+                "children": []
+              },
+              {
+                "tagName": "thead",
+                "attributes": {
+                  "class": "table-dark",
+                  "data-role": "table-header",
+                  "id": "table-simple-header-id"
+                },
+                "children": [
+                  {
+                    "tagName": "tr",
+                    "attributes": {
+                      "data-role": "table-header-row",
+                      "id": "table-simple-header-row-id"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "tagName": "tbody",
+                "attributes": {
+                  "data-role": "table-body",
+                  "id": "table-simple-body-id"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tableSimple": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "table-parent",
+      "id": "table-parent-id"
+    },
+    "children": [
+      {
+        "tagName": "table",
+        "attributes": {
+          "class": "table table-hover table-striped align-middle border mb-0",
+          "id": "table-tag-id"
+        },
+        "children": [
+          {
+            "tagName": "colgroup",
+            "attributes": {
+              "data-role": "table-colgroup",
+              "id": "table-colgroup-id"
+            },
+            "children": []
+          },
+          {
+            "tagName": "thead",
+            "attributes": {
+              "class": "table-dark",
+              "data-role": "table-header",
+              "id": "table-header-id"
+            },
+            "children": [
+              {
+                "tagName": "tr",
+                "attributes": {
+                  "data-role": "table-header-row",
+                  "id": "table-header-row-id"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "tagName": "tbody",
+            "attributes": {
+              "data-role": "table-body",
+              "id": "table-body-id"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "tableWithFooter": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "table-parent",
+      "id": "table-parent-id"
+    },
+    "children": [
+      {
+        "tagName": "table",
+        "attributes": {
+          "class": "table table-hover table-striped align-middle border mb-0",
+          "id": "table-tag-id"
+        },
+        "children": [
+          {
+            "tagName": "colgroup",
+            "attributes": {
+              "data-role": "table-colgroup",
+              "id": "table-colgroup-id"
+            },
+            "children": []
+          },
+          {
+            "tagName": "thead",
+            "attributes": {
+              "class": "table-dark",
+              "data-role": "table-header",
+              "id": "table-header-id"
+            },
+            "children": [
+              {
+                "tagName": "tr",
+                "attributes": {
+                  "data-role": "table-header-row",
+                  "id": "table-header-row-id"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "tagName": "tbody",
+            "attributes": {
+              "data-role": "table-body",
+              "id": "table-body-id"
+            },
+            "children": []
+          },
+          {
+            "tagName": "tfoot",
+            "attributes": {
+              "data-role": "table-footer",
+              "id": "table-footer-id"
+            },
+            "children": [
+              {
+                "tagName": "tr",
+                "attributes": {
+                  "data-role": "table-footer-row",
+                  "id": "table-footer-row-id"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tableBodyOnly": {
+    "tagName": "table",
+    "attributes": {
+      "class": "table table-hover table-striped align-middle border mb-0",
+      "id": "table-tag-id"
+    },
+    "children": [
+      {
+        "tagName": "tbody",
+        "attributes": {
+          "data-role": "table-body",
+          "id": "table-body-id"
+        },
+        "children": []
+      }
+    ]
+  },
+  "tableBodyOnly1": {
+    "tagName": "tbody",
+    "attributes": {
+      "data-role": "table-body",
+      "id": "table-body-only-id"
+    },
+    "children": []
+  },
+  "tableFooterOnly": {
+    "tagName": "tfoot",
+    "attributes": {
+      "data-role": "table-footer",
+      "id": "table-footer-only-id"
+    },
+    "children": [
+      {
+        "tagName": "tr",
+        "attributes": {
+          "data-role": "table-footer-row",
+          "id": "table-footer-only-footer-row-id"
+        },
+        "children": []
+      }
+    ]
+  },
+  "tableHeaderOnly": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "table-parent",
+      "id": "table-parent-id"
+    },
+    "children": [
+      {
+        "tagName": "table",
+        "attributes": {
+          "class": "table table-hover table-striped align-middle border mb-0",
+          "id": "table-tag-id"
+        },
+        "children": [
+          {
+            "tagName": "colgroup",
+            "attributes": {
+              "data-role": "table-colgroup",
+              "id": "table-colgroup-id"
+            },
+            "children": []
+          },
+          {
+            "tagName": "thead",
+            "attributes": {
+              "class": "table-dark",
+              "data-role": "table-header",
+              "id": "table-header-id"
+            },
+            "children": [
+              {
+                "tagName": "tr",
+                "attributes": {
+                  "data-role": "table-header-row",
+                  "id": "table-header-row-id"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tableHeaderOnly1": {
+    "tagName": "table",
+    "attributes": {
+      "class": "table table-hover table-striped align-middle border mb-0",
+      "id": "table-header-only-id"
+    },
+    "children": [
+      {
+        "tagName": "colgroup",
+        "attributes": {
+          "data-role": "table-colgroup",
+          "id": "table-header-only-colgroup-id"
+        },
+        "children": []
+      },
+      {
+        "tagName": "thead",
+        "attributes": {
+          "class": "table-dark",
+          "data-role": "table-header",
+          "id": "table-header-only-header-id"
+        },
+        "children": [
+          {
+            "tagName": "tr",
+            "attributes": {
+              "data-role": "table-header-row",
+              "id": "table-header-only-header-row-id"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "tagName": "tbody",
+        "attributes": {
+          "data-role": "table-body",
+          "id": "table-header-only-body-id"
+        },
+        "children": []
+      }
+    ]
+  },
+  "tableHeaderAndFooter": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "table-parent",
+      "id": "table-simple-id"
+    },
+    "children": [
+      {
+        "tagName": "table",
+        "attributes": {
+          "class": "table table-hover table-striped align-middle border mb-0",
+          "id": "table-simple-table-id"
+        },
+        "children": [
+          {
+            "tagName": "colgroup",
+            "attributes": {
+              "data-role": "table-colgroup",
+              "id": "table-simple-colgroup-id"
+            },
+            "children": []
+          },
+          {
+            "tagName": "thead",
+            "attributes": {
+              "class": "table-dark",
+              "data-role": "table-header",
+              "id": "table-simple-header-id"
+            },
+            "children": [
+              {
+                "tagName": "tr",
+                "attributes": {
+                  "data-role": "table-header-row",
+                  "id": "table-simple-header-row-id"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "tagName": "tbody",
+            "attributes": {
+              "data-role": "table-body",
+              "id": "table-simple-body-id"
+            },
+            "children": []
+          },
+          {
+            "tagName": "tfoot",
+            "attributes": {
+              "data-role": "table-footer",
+              "id": "table-simple-footer-id"
+            },
+            "children": [
+              {
+                "tagName": "tr",
+                "attributes": {
+                  "data-role": "table-footer-row",
+                  "id": "table-simple-footer-row-id"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "selectBase": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "select-container",
+      "id": "select-base-id"
+    },
+    "children": []
+  },
+  "dataListBase": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "datalist-container",
+      "id": "data-list-base-id"
+    },
+    "children": []
+  },
+  "dataListSimple": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "datalist-container",
+      "id": "data-list-simple-id"
+    },
+    "children": []
+  },
+  "selectOptionsOnlyBase": [],
+  "searchInputBase": {
+    "tagName": "div",
+    "attributes": {
+      "class": "d-flex align-items-center gap-2",
+      "id": "search-input-base-id"
+    },
+    "children": [
+      {
+        "tagName": "label",
+        "textContent": "${label}",
+        "attributes": {
+          "class": "form-label mb-0 text-nowrap fw-semibold",
+          "for": "${id}",
+          "id": "search-input-label-id"
+        }
+      },
+      {
+        "tagName": "input",
+        "attributes": {
+          "type": "search",
+          "placeholder": "${placeholder}",
+          "class": "form-control",
+          "id": "search-input-field-id"
+        }
+      }
+    ]
+  },
+  "formBase": {
+    "tagName": "div",
+    "attributes": {
+      "class": "card shadow-sm border-0",
+      "id": "form-base-id"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center",
+          "id": "form-base-header-id"
+        },
+        "children": [
+          {
+            "tagName": "h2",
+            "textContent": "Data Entry Form",
+            "attributes": {
+              "class": "h5 fw-bold mb-0 text-dark",
+              "id": "form-base-title-id"
+            }
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-body p-4",
+          "id": "form-base-body-id"
+        },
+        "children": [
+          {
+            "tagName": "form",
+            "attributes": {
+              "id": "form-base-form-id",
+              "data-role": "form-body"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-footer bg-light px-4 py-3 d-flex justify-content-end gap-2",
+          "id": "form-base-footer-id"
+        },
+        "children": [
+          {
+            "tagName": "button",
+            "textContent": "Reset",
+            "attributes": {
+              "type": "reset",
+              "class": "btn btn-outline-secondary",
+              "id": "form-base-reset-button-id"
+            }
+          },
+          {
+            "tagName": "button",
+            "textContent": "Submit",
+            "attributes": {
+              "type": "submit",
+              "class": "btn btn-primary",
+              "id": "form-base-submit-button-id"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "formSimple": {
+    "tagName": "div",
+    "attributes": {
+      "class": "card shadow-sm border-0",
+      "id": "form-simple-id"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center",
+          "id": "form-simple-header-id"
+        },
+        "children": [
+          {
+            "tagName": "h2",
+            "textContent": "Data Entry Form",
+            "attributes": {
+              "class": "h5 fw-bold mb-0 text-dark",
+              "id": "form-simple-title-id"
+            }
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-body p-4",
+          "id": "form-simple-body-id"
+        },
+        "children": [
+          {
+            "tagName": "form",
+            "attributes": {
+              "id": "form-simple-form-id",
+              "data-role": "form-body"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-footer bg-light px-4 py-3 d-flex justify-content-end gap-2",
+          "id": "form-simple-footer-id"
+        },
+        "children": [
+          {
+            "tagName": "button",
+            "textContent": "Reset",
+            "attributes": {
+              "type": "reset",
+              "class": "btn btn-outline-secondary",
+              "id": "form-simple-reset-button-id"
+            }
+          },
+          {
+            "tagName": "button",
+            "textContent": "Submit",
+            "attributes": {
+              "type": "submit",
+              "class": "btn btn-primary",
+              "id": "form-simple-submit-button-id"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "searchToolbar": {
+    "tagName": "div",
+    "attributes": {
+      "class": "row mb-3 align-items-center",
+      "data-role": "search-toolbar"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "col-md-4 d-flex align-items-center",
+          "data-role": "search-label-slot"
+        },
+        "children": []
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "col-md-4 text-center d-flex align-items-center justify-content-center",
+          "data-role": "search-helper-slot"
+        },
+        "children": []
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "col-md-4",
+          "data-role": "search-input-slot"
+        },
+        "children": []
+      }
+    ]
+  },
+  "searchLabel": {
+    "tagName": "h6",
+    "textContent": "Items",
+    "attributes": {
+      "class": "mb-0 fw-semibold text-secondary",
+      "id": "table-title"
+    }
+  },
+  "searchHelper": {
+    "tagName": "span",
+    "textContent": "Showing all records",
+    "attributes": {
+      "id": "search-feedback",
+      "class": "badge bg-white text-secondary border px-3 py-2 small fw-normal shadow-sm"
+    }
+  },
+  "searchInput": {
+    "tagName": "div",
+    "attributes": {
+      "class": "input-group"
+    },
+    "children": [
+      {
+        "tagName": "span",
+        "attributes": {
+          "class": "input-group-text bg-white"
+        },
+        "children": [
+          {
+            "tagName": "i",
+            "attributes": {
+              "class": "bi bi-search"
+            },
+            "textContent": "🔍"
+          }
+        ]
+      },
+      {
+        "tagName": "input",
+        "attributes": {
+          "type": "text",
+          "id": "tableSearch",
+          "class": "form-control",
+          "placeholder": "Search table..."
+        }
+      }
+    ]
+  },
+  "optionsEditButtonCell": {
+    "tagName": "td",
+    "attributes": {
+      "class": "py-2 px-3 text-center"
+    },
+    "children": [
+      {
+        "tagName": "button",
+        "textContent": "edit",
+        "attributes": {
+          "class": "btn btn-secondary btn-sm ks-btn-edit"
+        }
+      }
+    ]
+  },
+  "optionsDeleteButtonCell": {
+    "tagName": "td",
+    "attributes": {
+      "class": "py-2 px-3 text-center"
+    },
+    "children": [
+      {
+        "tagName": "button",
+        "textContent": "delete",
+        "attributes": {
+          "class": "btn btn-danger btn-sm ks-btn-delete"
+        }
+      }
+    ]
+  },
+  "headerForEditOption": {
+    "tagName": "th",
+    "textContent": "edit",
+    "attributes": {
+      "class": "py-3 px-3 fw-semibold text-uppercase small"
+    }
+  },
+  "headerForDeleteOption": {
+    "tagName": "th",
+    "textContent": "delete",
+    "attributes": {
+      "class": "py-3 px-3 fw-semibold text-uppercase small"
+    }
+  },
+  "colGroupForEditOption": {
+    "tagName": "col",
+    "attributes": {
+      "width": "80px"
+    }
+  },
+  "colGroupForDeleteOption": {
+    "tagName": "col",
+    "attributes": {
+      "width": "90px"
+    }
+  },
+  "tableWithFooterParent": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "table-parent",
+      "id": "table-with-footer-parent-id"
+    },
+    "children": [
+      {
+        "tagName": "table",
+        "attributes": {
+          "class": "table table-hover table-striped align-middle border mb-0",
+          "id": "table-with-footer-id"
+        },
+        "children": [
+          {
+            "tagName": "colgroup",
+            "attributes": {
+              "data-role": "table-colgroup",
+              "id": "table-with-footer-colgroup-id"
+            },
+            "children": []
+          },
+          {
+            "tagName": "thead",
+            "attributes": {
+              "class": "table-dark",
+              "data-role": "table-header",
+              "id": "table-with-footer-header-id"
+            },
+            "children": [
+              {
+                "tagName": "tr",
+                "attributes": {
+                  "data-role": "table-header-row",
+                  "id": "table-with-footer-header-row-id"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "tagName": "tbody",
+            "attributes": {
+              "data-role": "table-body",
+              "id": "table-with-footer-body-id"
+            },
+            "children": []
+          },
+          {
+            "tagName": "tfoot",
+            "attributes": {
+              "data-role": "table-footer",
+              "id": "table-with-footer-footer-id"
+            },
+            "children": [
+              {
+                "tagName": "tr",
+                "attributes": {
+                  "data-role": "table-footer-row",
+                  "id": "table-with-footer-footer-row-id"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tableWithSearchAndFooter": {
+    "tagName": "div",
+    "attributes": {
+      "data-role": "table-parent",
+      "id": "table-with-search-footer-parent-id"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "row mb-3 align-items-center",
+          "data-role": "search-toolbar"
+        },
+        "children": [
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "col-md-4 d-flex align-items-center",
+              "data-role": "search-label-slot"
+            },
+            "children": []
+          },
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "col-md-4 text-center d-flex align-items-center justify-content-center",
+              "data-role": "search-helper-slot"
+            },
+            "children": []
+          },
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "col-md-4",
+              "data-role": "search-input-slot"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "id": "table-content-container"
+        },
+        "children": [
+          {
+            "tagName": "table",
+            "attributes": {
+              "class": "table table-hover table-striped align-middle border mb-0",
+              "id": "table-with-footer-id"
+            },
+            "children": [
+              {
+                "tagName": "colgroup",
+                "attributes": {
+                  "data-role": "table-colgroup",
+                  "id": "table-with-footer-colgroup-id"
+                },
+                "children": []
+              },
+              {
+                "tagName": "thead",
+                "attributes": {
+                  "class": "table-dark",
+                  "data-role": "table-header",
+                  "id": "table-with-footer-header-id"
+                },
+                "children": [
+                  {
+                    "tagName": "tr",
+                    "attributes": {
+                      "data-role": "table-header-row",
+                      "id": "table-with-footer-header-row-id"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "tagName": "tbody",
+                "attributes": {
+                  "data-role": "table-body",
+                  "id": "table-with-footer-body-id"
+                },
+                "children": []
+              },
+              {
+                "tagName": "tfoot",
+                "attributes": {
+                  "data-role": "table-footer",
+                  "id": "table-with-footer-footer-id"
+                },
+                "children": [
+                  {
+                    "tagName": "tr",
+                    "attributes": {
+                      "data-role": "table-footer-row",
+                      "id": "table-with-footer-footer-row-id"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "accordionSimple": {
+    "tagName": "div",
+    "attributes": {
+      "class": "accordion shadow-sm rounded-3 border",
+      "id": "accordion-parent-id",
+      "data-role": "accordion-parent"
+    },
+    "children": []
+  },
+  "accordionFlush": {
+    "tagName": "div",
+    "attributes": {
+      "class": "accordion accordion-flush shadow-sm rounded-3 border",
+      "id": "accordion-parent-id",
+      "data-role": "accordion-parent"
+    },
+    "children": []
+  },
+  "buildAccordionItem": {
+    "tagName": "div",
+    "attributes": {
+      "class": "accordion-item",
+      "data-role": "accordion-item"
+    },
+    "children": [
+      {
+        "tagName": "h2",
+        "attributes": {
+          "class": "accordion-header",
+          "id": "heading-${id}"
+        },
+        "children": [
+          {
+            "tagName": "button",
+            "attributes": {
+              "class": "accordion-button collapsed",
+              "type": "button",
+              "data-bs-toggle": "collapse",
+              "data-bs-target": "#collapse-${id}",
+              "aria-expanded": "false",
+              "aria-controls": "collapse-${id}"
+            },
+            "textContent": "${title}"
+          }
+        ]
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "id": "collapse-${id}",
+          "class": "accordion-collapse collapse",
+          "aria-labelledby": "heading-${id}",
+          "data-bs-parent": "#accordion-parent-id",
+          "data-role": "accordion-collapse"
+        },
+        "children": [
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "accordion-body text-secondary"
+            },
+            "textContent": "${content}"
+          }
+        ]
+      }
+    ]
+  },
+  "cardSimple": {
+    "tagName": "div",
+    "attributes": {
+      "class": "card shadow-sm border rounded-3",
+      "id": "card-parent-id",
+      "data-role": "card-parent"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-body p-4",
+          "data-role": "card-body"
+        },
+        "children": []
+      }
+    ]
+  },
+  "cardWithHeader": {
+    "tagName": "div",
+    "attributes": {
+      "class": "card shadow-sm border rounded-3",
+      "id": "card-parent-id",
+      "data-role": "card-parent"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-header bg-white py-3 fw-bold border-bottom",
+          "data-role": "card-header"
+        },
+        "children": []
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-body p-4",
+          "data-role": "card-body"
+        },
+        "children": []
+      }
+    ]
+  },
+  "cardWithFooter": {
+    "tagName": "div",
+    "attributes": {
+      "class": "card shadow-sm border rounded-3",
+      "id": "card-parent-id",
+      "data-role": "card-parent"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-header bg-white py-3 fw-bold border-bottom",
+          "data-role": "card-header"
+        },
+        "children": []
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-body p-4",
+          "data-role": "card-body"
+        },
+        "children": []
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-footer bg-light py-3 border-top",
+          "data-role": "card-footer"
+        },
+        "children": []
+      }
+    ]
+  },
+  "cardImageTop": {
+    "tagName": "div",
+    "attributes": {
+      "class": "card shadow-sm border rounded-3 overflow-hidden",
+      "id": "card-parent-id",
+      "data-role": "card-parent"
+    },
+    "children": [
+      {
+        "tagName": "img",
+        "attributes": {
+          "class": "card-img-top",
+          "src": "${imageSrc}",
+          "alt": "${imageAlt}",
+          "data-role": "card-img"
+        }
+      },
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card-body p-4",
+          "data-role": "card-body"
+        },
+        "children": []
+      }
+    ]
+  },
+  "buildCardBodyTemplate": {
+    "tagName": "div",
+    "attributes": {
+      "class": "card-content"
+    },
+    "children": [
+      {
+        "tagName": "h5",
+        "attributes": {
+          "class": "card-title fw-bold text-dark mb-2"
+        },
+        "textContent": "${title}"
+      },
+      {
+        "tagName": "p",
+        "attributes": {
+          "class": "card-text text-secondary mb-3"
+        },
+        "textContent": "${text}"
+      }
+    ]
+  },
+  "buildCardHeaderTemplate": {
+    "tagName": "span",
+    "attributes": {
+      "class": "card-header-title text-dark"
+    },
+    "textContent": "${headerTitle}"
+  },
+  "buildCardFooterTemplate": {
+    "tagName": "small",
+    "attributes": {
+      "class": "text-muted"
+    },
+    "textContent": "${footerText}"
+  },
+  "listSimple": {
+    "tagName": "ul",
+    "attributes": {
+      "class": "list-unstyled mb-0",
+      "id": "list-parent-id",
+      "data-role": "list-parent"
+    },
+    "children": []
+  },
+  "listGroup": {
+    "tagName": "ul",
+    "attributes": {
+      "class": "list-group shadow-sm",
+      "id": "list-group-parent-id",
+      "data-role": "list-group-parent"
+    },
+    "children": []
+  },
+  "listOrdered": {
+    "tagName": "ol",
+    "attributes": {
+      "class": "list-group list-group-numbered shadow-sm",
+      "id": "list-ordered-parent-id",
+      "data-role": "list-group-parent"
+    },
+    "children": []
+  },
+  "menuSimple": {
+    "tagName": "ul",
+    "attributes": {
+      "class": "nav nav-pills flex-column bg-white p-3 rounded-3 shadow-sm border",
+      "id": "menu-parent-id",
+      "data-role": "menu-parent"
+    },
+    "children": []
+  },
+  "menuCardsBase": {
+    "tagName": "div",
+    "attributes": {
+      "class": "row g-4",
+      "id": "menu-cards-parent-id",
+      "data-role": "menu-cards-parent"
+    },
+    "children": []
+  },
+  "buildListItemTemplate": {
+    "tagName": "li",
+    "attributes": {
+      "class": "py-2 px-3 border-bottom d-flex align-items-center text-secondary",
+      "data-role": "list-item"
+    },
+    "textContent": "${text}"
+  },
+  "buildListGroupItemTemplate": {
+    "tagName": "li",
+    "attributes": {
+      "class": "list-group-item d-flex justify-content-between align-items-center py-3",
+      "data-role": "list-group-item"
+    },
+    "children": [
+      {
+        "tagName": "span",
+        "textContent": "${text}"
+      },
+      {
+        "tagName": "span",
+        "attributes": {
+          "class": "badge bg-primary rounded-pill px-3 py-2"
+        },
+        "textContent": "${badge}"
+      }
+    ]
+  },
+  "buildMenuItemTemplate": {
+    "tagName": "li",
+    "attributes": {
+      "class": "nav-item mb-1",
+      "data-role": "menu-item"
+    },
+    "children": [
+      {
+        "tagName": "a",
+        "attributes": {
+          "class": "nav-link text-dark fw-medium",
+          "href": "${href}"
+        },
+        "textContent": "${text}"
+      }
+    ]
+  },
+  "buildMenuCardItemTemplate": {
+    "tagName": "div",
+    "attributes": {
+      "class": "col-md-4 col-sm-6",
+      "data-role": "menu-card-col"
+    },
+    "children": [
+      {
+        "tagName": "div",
+        "attributes": {
+          "class": "card h-100 shadow-sm border rounded-3"
+        },
+        "children": [
+          {
+            "tagName": "div",
+            "attributes": {
+              "class": "card-body p-4 d-flex flex-column"
+            },
+            "children": [
+              {
+                "tagName": "h5",
+                "attributes": {
+                  "class": "card-title fw-bold text-primary mb-2"
+                },
+                "textContent": "${title}"
+              },
+              {
+                "tagName": "p",
+                "attributes": {
+                  "class": "card-text text-muted small flex-grow-1"
+                },
+                "textContent": "${description}"
+              },
+              {
+                "tagName": "a",
+                "attributes": {
+                  "class": "btn btn-outline-primary btn-sm mt-3",
+                  "href": "${href}"
+                },
+                "textContent": "${actionText}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

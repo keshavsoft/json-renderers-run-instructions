@@ -1,0 +1,149 @@
+{
+  "table": {
+    "headerOnly": {
+      "baseFromSpec": "tableHeaderOnly",
+      "instructions": [
+        "buildColgroup",
+        "buildHeader"
+      ]
+    },
+    "simple": {
+      "baseFromSpec": "tableSimple",
+      "instructions": [
+        "buildColgroup",
+        "buildHeader",
+        "buildBody"
+      ]
+    },
+    "withFooter": {
+      "baseFromSpec": "tableWithFooter",
+      "instructions": [
+        "buildColgroup",
+        "buildHeader",
+        "buildFooter",
+        "buildBody"
+      ]
+    },
+    "bodyOnly": {
+      "baseFromSpec": "tableBodyOnly",
+      "instructions": [
+        "buildBody"
+      ]
+    }
+  },
+  "select": {
+    "simple": {
+      "baseFromSpec": "selectBase",
+      "instructions": [
+        "buildSelectWithOptions"
+      ]
+    }
+  },
+  "dataList": {
+    "simple": {
+      "baseFromSpec": "dataListSimple",
+      "instructions": [
+        "buildDataListWithOptions"
+      ]
+    }
+  },
+  "selectOptionsOnly": {
+    "simple": {
+      "baseFromSpec": "selectOptionsOnlyBase",
+      "instructions": [
+        "buildOptionsArray"
+      ]
+    }
+  },
+  "searchInput": {
+    "simple": {
+      "baseFromSpec": "searchInputBase",
+      "instructions": []
+    }
+  },
+  "form": {
+    "simple": {
+      "baseFromSpec": "formSimple",
+      "instructions": [
+        "buildFormField"
+      ]
+    }
+  },
+  "accordion": {
+    "simple": {
+      "baseFromSpec": "accordionSimple",
+      "instructions": [
+        "buildAccordionItems"
+      ]
+    },
+    "flush": {
+      "baseFromSpec": "accordionFlush",
+      "instructions": [
+        "buildAccordionItems"
+      ]
+    }
+  },
+  "card": {
+    "simple": {
+      "baseFromSpec": "cardSimple",
+      "instructions": [
+        "buildCardBody"
+      ]
+    },
+    "withHeader": {
+      "baseFromSpec": "cardWithHeader",
+      "instructions": [
+        "buildCardHeader",
+        "buildCardBody"
+      ]
+    },
+    "withFooter": {
+      "baseFromSpec": "cardWithFooter",
+      "instructions": [
+        "buildCardHeader",
+        "buildCardBody",
+        "buildCardFooter"
+      ]
+    },
+    "imageTop": {
+      "baseFromSpec": "cardImageTop",
+      "instructions": [
+        "buildCardBody"
+      ]
+    }
+  },
+  "list": {
+    "simple": {
+      "baseFromSpec": "listSimple",
+      "instructions": [
+        "buildListItems"
+      ]
+    },
+    "group": {
+      "baseFromSpec": "listGroup",
+      "instructions": [
+        "buildListGroupItems"
+      ]
+    },
+    "ordered": {
+      "baseFromSpec": "listOrdered",
+      "instructions": [
+        "buildListGroupItems"
+      ]
+    }
+  },
+  "menu": {
+    "simple": {
+      "baseFromSpec": "menuSimple",
+      "instructions": [
+        "buildMenuItems"
+      ]
+    },
+    "cards": {
+      "baseFromSpec": "menuCardsBase",
+      "instructions": [
+        "buildMenuCards"
+      ]
+    }
+  }
+}

@@ -1,0 +1,650 @@
+{
+  "buildColgroup": {
+    "type": "single",
+    "narration": "Build column widths",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ],
+      "jsonPath": "$..*[?@.attributes['data-role'] == 'table-colgroup']"
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.columns"
+    },
+    "templateKey": "buildColGroup",
+    "func": "fromCollection"
+  },
+  "buildHeader": {
+    "type": "single",
+    "narration": "Build table header",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ],
+      "jsonPath": "$..*[?@.attributes['data-role'] == 'table-header-row']"
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.columns"
+    },
+    "templateKey": "buildHeader",
+    "func": "fromCollection"
+  },
+  "buildFooter": {
+    "type": "single",
+    "narration": "Build table footer",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ],
+      "jsonPath": "$..*[?@.attributes['data-role'] == 'table-footer-row']"
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.columns"
+    },
+    "templateKey": "buildFooter",
+    "func": "fromCollection"
+  },
+  "buildBody": {
+    "type": "rowOnColumn",
+    "narration": "Build table body",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ],
+      "jsonPath": "$..*[?@.attributes['data-role'] == 'table-body']"
+    },
+    "templateKey": {
+      "rowKey": "buildBodyTr",
+      "columnKey": "buildBodyCell"
+    }
+  },
+  "serial": [
+    {
+      "narration": "Prepend the serial column width to the table colgroup.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshift",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-colgroup']"
+      },
+      "sourcePath": null,
+      "templateKey": "colGroupForSerial",
+      "func": null
+    },
+    {
+      "narration": "Prepend the serial header cell to the table header row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshift",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-header-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "headerSerialCell",
+      "func": null
+    },
+    {
+      "narration": "Prepend the serial number cell into each table body row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshiftSerialToRows",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-body']"
+      },
+      "sourcePath": null,
+      "templateKey": "buildBodyCell",
+      "func": null
+    },
+    {
+      "narration": "Prepend the serial footer cell to the table footer row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshift",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-footer-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "headerSerialCell",
+      "func": null
+    }
+  ],
+  "search": [
+    {
+      "narration": "Prepend the search row to top of the table.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshift",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-parent']"
+      },
+      "sourcePath": null,
+      "templateKey": "tableSearch",
+      "func": null
+    }
+  ],
+  "buildFormField": {
+    "type": "single",
+    "narration": "Build form fields from columns",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ],
+      "jsonPath": "$..*[?@.attributes['data-role'] == 'form-body']"
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.columns"
+    },
+    "templateKey": "buildFormField",
+    "func": "fromCollection"
+  },
+  "buildSelectWithOptions": {
+    "type": "columnOnRow",
+    "narration": "Build selects with options",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ]
+    },
+    "templateKey": {
+      "columnKey": "buildSelect",
+      "rowKey": "buildOption"
+    }
+  },
+  "buildSelectOptions": {
+    "type": "single",
+    "narration": "Build select options",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.data"
+    },
+    "templateKey": "buildOption",
+    "func": "fromCollection"
+  },
+  "buildOptionsArray": {
+    "type": "single",
+    "narration": "Build options array",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": []
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.data"
+    },
+    "templateKey": "buildOption",
+    "func": "fromCollection"
+  },
+  "buildDataListWithOptions": {
+    "type": "columnOnRow",
+    "narration": "Build datalists with options",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ]
+    },
+    "templateKey": {
+      "columnKey": "buildDataList",
+      "rowKey": "buildOption"
+    }
+  },
+  "searchFrame": [
+    {
+      "narration": "Insert the search toolbar frame before the table when a search feature is enabled.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshift",
+        "jsonPath": "$"
+      },
+      "sourcePath": null,
+      "templateKey": "searchToolbar",
+      "func": null,
+      "skipIf": "$..*[?@.attributes['data-role'] == 'search-toolbar']"
+    }
+  ],
+  "searchLabel": [
+    {
+      "narration": "Insert the search label into its configured slot.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'search-label-slot']"
+      },
+      "sourcePath": null,
+      "templateKey": "searchLabel",
+      "func": null,
+      "skipIf": "$..*[?@.attributes.id == 'table-title']"
+    }
+  ],
+  "searchHelper": [
+    {
+      "narration": "Insert the search helper text into its configured slot.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'search-helper-slot']"
+      },
+      "sourcePath": null,
+      "templateKey": "searchHelper",
+      "func": null,
+      "skipIf": "$..*[?@.attributes.id == 'search-feedback']"
+    }
+  ],
+  "searchInput": [
+    {
+      "narration": "Insert the search input into its configured slot.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'search-input-slot']"
+      },
+      "sourcePath": null,
+      "templateKey": "searchInput",
+      "func": null,
+      "skipIf": "$..*[?@.attributes.id == 'tableSearch']"
+    }
+  ],
+  "serialRoot": [
+    {
+      "narration": "Prepend the serial column width to the table colgroup.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshift",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-colgroup']"
+      },
+      "sourcePath": null,
+      "templateKey": "colGroupForSerial",
+      "func": null
+    },
+    {
+      "narration": "Prepend the serial header cell to the table header row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshift",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-header-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "headerSerialCell",
+      "func": null
+    },
+    {
+      "narration": "Prepend the serial footer cell to the table footer row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshift",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-footer-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "headerSerialCell",
+      "func": null
+    }
+  ],
+  "serialChild": [
+    {
+      "narration": "Prepend the serial number cell into each table body row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "unshiftSerialToRows",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-body']"
+      },
+      "sourcePath": null,
+      "templateKey": "buildBodyCell",
+      "func": null
+    }
+  ],
+  "optionsShowButton": [
+    {
+      "narration": "Append the options column width to the table colgroup.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-colgroup']"
+      },
+      "sourcePath": null,
+      "templateKey": "colGroupForOption",
+      "func": null
+    },
+    {
+      "narration": "Append the options header cell to the table header row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-header-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "headerForOption",
+      "func": null
+    },
+    {
+      "narration": "Append the options button cell into each table body row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "pushToRows",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-body']"
+      },
+      "sourcePath": null,
+      "templateKey": "optionsButtonCell",
+      "func": null
+    },
+    {
+      "narration": "Append the options footer cell to the table footer row.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-footer-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "tdWithButtonSaveWarning",
+      "func": null
+    }
+  ],
+  "optionsEditButton": [
+    {
+      "narration": "Append edit column width.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-colgroup']"
+      },
+      "sourcePath": null,
+      "templateKey": "colGroupForEditOption",
+      "func": null
+    },
+    {
+      "narration": "Append edit header.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-header-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "headerForEditOption",
+      "func": null
+    },
+    {
+      "narration": "Append edit button cells to table rows.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "pushToRows",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-body']"
+      },
+      "sourcePath": null,
+      "templateKey": "optionsEditButtonCell",
+      "func": null
+    },
+    {
+      "narration": "Append an empty footer cell for the edit action column.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-footer-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "emptyCell",
+      "func": null
+    }
+  ],
+  "optionsDeleteButton": [
+    {
+      "narration": "Append delete column width.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-colgroup']"
+      },
+      "sourcePath": null,
+      "templateKey": "colGroupForDeleteOption",
+      "func": null
+    },
+    {
+      "narration": "Append delete header.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-header-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "headerForDeleteOption",
+      "func": null
+    },
+    {
+      "narration": "Append delete button cells to table rows.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "pushToRows",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-body']"
+      },
+      "sourcePath": null,
+      "templateKey": "optionsDeleteButtonCell",
+      "func": null
+    },
+    {
+      "narration": "Append an empty footer cell for the delete action column.",
+      "destinationPath": {
+        "fileName": "base",
+        "filePath": [
+          "children"
+        ],
+        "action": "push",
+        "jsonPath": "$..*[?@.attributes['data-role'] == 'table-footer-row']"
+      },
+      "sourcePath": null,
+      "templateKey": "emptyCell",
+      "func": null
+    }
+  ],
+  "buildAccordionItems": {
+    "type": "single",
+    "narration": "Build accordion items from array",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.items"
+    },
+    "templateKey": "buildAccordionItem",
+    "func": "fromCollection"
+  },
+  "buildCardBody": {
+    "type": "single",
+    "narration": "Build card body content",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ],
+      "action": "push",
+      "jsonPath": "$..*[?@.attributes['data-role'] == 'card-body']"
+    },
+    "sourcePath": {
+      "fileName": "data"
+    },
+    "templateKey": "buildCardBodyTemplate",
+    "func": "applyTemplate"
+  },
+  "buildCardHeader": {
+    "type": "single",
+    "narration": "Build card header content",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ],
+      "action": "push",
+      "jsonPath": "$..*[?@.attributes['data-role'] == 'card-header']"
+    },
+    "sourcePath": {
+      "fileName": "data"
+    },
+    "templateKey": "buildCardHeaderTemplate",
+    "func": "applyTemplate"
+  },
+  "buildCardFooter": {
+    "type": "single",
+    "narration": "Build card footer content",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ],
+      "action": "push",
+      "jsonPath": "$..*[?@.attributes['data-role'] == 'card-footer']"
+    },
+    "sourcePath": {
+      "fileName": "data"
+    },
+    "templateKey": "buildCardFooterTemplate",
+    "func": "applyTemplate"
+  },
+  "buildListItems": {
+    "type": "single",
+    "narration": "Build simple list items",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.items"
+    },
+    "templateKey": "buildListItemTemplate",
+    "func": "fromCollection"
+  },
+  "buildListGroupItems": {
+    "type": "single",
+    "narration": "Build list-group items",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.items"
+    },
+    "templateKey": "buildListGroupItemTemplate",
+    "func": "fromCollection"
+  },
+  "buildMenuItems": {
+    "type": "single",
+    "narration": "Build navigation menu items",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.items"
+    },
+    "templateKey": "buildMenuItemTemplate",
+    "func": "fromCollection"
+  },
+  "buildMenuCards": {
+    "type": "single",
+    "narration": "Build menu cards grid",
+    "destinationPath": {
+      "fileName": "base",
+      "filePath": [
+        "children"
+      ]
+    },
+    "sourcePath": {
+      "fileName": "data",
+      "jsonPath": "$.items"
+    },
+    "templateKey": "buildMenuCardItemTemplate",
+    "func": "fromCollection"
+  }
+}

@@ -1,0 +1,334 @@
+{
+  "table": {
+    "headerOnly": {
+      "baseFromSpec": "tableHeaderOnly",
+      "instructions": [
+        "buildColgroup",
+        "buildHeader"
+      ],
+      "options": {
+        "search": [
+          {
+            "key": "set-search",
+            "whenAny": [
+              "showLabel",
+              "showHelper",
+              "showInput"
+            ],
+            "instructionKey": "searchFrame"
+          },
+          {
+            "key": "search-show-label",
+            "when": "showLabel",
+            "instructionKey": "searchLabel"
+          },
+          {
+            "key": "search-show-helper",
+            "when": "showHelper",
+            "instructionKey": "searchHelper"
+          },
+          {
+            "key": "search-show-input",
+            "when": "showInput",
+            "instructionKey": "searchInput"
+          }
+        ],
+        "serial": [
+          {
+            "key": "set-serial",
+            "whenAny": [
+              "showSerial"
+            ],
+            "instructionKey": "serialRoot"
+          },
+          {
+            "key": "serial-show-serial",
+            "when": "showSerial",
+            "instructionKey": "serialChild"
+          }
+        ]
+      }
+    },
+    "simple": {
+      "baseFromSpec": "tableSimple",
+      "instructions": [
+        "buildColgroup",
+        "buildHeader",
+        "buildBody"
+      ],
+      "options": {
+        "search": [
+          {
+            "key": "set-search",
+            "whenAny": [
+              "showLabel",
+              "showHelper",
+              "showInput"
+            ],
+            "instructionKey": "searchFrame"
+          },
+          {
+            "key": "search-show-label",
+            "when": "showLabel",
+            "instructionKey": "searchLabel"
+          },
+          {
+            "key": "search-show-helper",
+            "when": "showHelper",
+            "instructionKey": "searchHelper"
+          },
+          {
+            "key": "search-show-input",
+            "when": "showInput",
+            "instructionKey": "searchInput"
+          }
+        ],
+        "serial": [
+          {
+            "key": "set-serial",
+            "whenAny": [
+              "showSerial"
+            ],
+            "instructionKey": "serialRoot"
+          },
+          {
+            "key": "serial-show-serial",
+            "when": "showSerial",
+            "instructionKey": "serialChild"
+          }
+        ],
+        "options": [
+          {
+            "key": "options-show-button",
+            "when": "showButton",
+            "instructionKey": "optionsShowButton"
+          },
+          {
+            "key": "options-show-edit-button",
+            "when": "showEditButton",
+            "instructionKey": "optionsEditButton"
+          },
+          {
+            "key": "options-show-delete-button",
+            "when": "showDeleteButton",
+            "instructionKey": "optionsDeleteButton"
+          }
+        ]
+      }
+    },
+    "withFooter": {
+      "baseFromSpec": "tableWithFooter",
+      "instructions": [
+        "buildColgroup",
+        "buildHeader",
+        "buildFooter",
+        "buildBody"
+      ],
+      "options": {
+        "search": [
+          {
+            "key": "set-search",
+            "whenAny": [
+              "showLabel",
+              "showHelper",
+              "showInput"
+            ],
+            "instructionKey": "searchFrame"
+          },
+          {
+            "key": "search-show-label",
+            "when": "showLabel",
+            "instructionKey": "searchLabel"
+          },
+          {
+            "key": "search-show-helper",
+            "when": "showHelper",
+            "instructionKey": "searchHelper"
+          },
+          {
+            "key": "search-show-input",
+            "when": "showInput",
+            "instructionKey": "searchInput"
+          }
+        ],
+        "serial": [
+          {
+            "key": "set-serial",
+            "whenAny": [
+              "showSerial"
+            ],
+            "instructionKey": "serialRoot"
+          },
+          {
+            "key": "serial-show-serial",
+            "when": "showSerial",
+            "instructionKey": "serialChild"
+          }
+        ],
+        "options": [
+          {
+            "key": "options-show-button",
+            "when": "showButton",
+            "instructionKey": "optionsShowButton"
+          },
+          {
+            "key": "options-show-edit-button",
+            "when": "showEditButton",
+            "instructionKey": "optionsEditButton"
+          },
+          {
+            "key": "options-show-delete-button",
+            "when": "showDeleteButton",
+            "instructionKey": "optionsDeleteButton"
+          }
+        ]
+      }
+    },
+    "bodyOnly": {
+      "baseFromSpec": "tableBodyOnly",
+      "instructions": [
+        "buildBody"
+      ],
+      "options": {
+        "serial": [
+          {
+            "key": "serial-show-serial",
+            "when": "showSerial",
+            "instructionKey": "serialChild"
+          }
+        ]
+      }
+    }
+  },
+  "select": {
+    "simple": {
+      "baseFromSpec": "selectBase",
+      "instructions": [
+        "buildSelectWithOptions"
+      ],
+      "options": {}
+    }
+  },
+  "dataList": {
+    "simple": {
+      "baseFromSpec": "dataListSimple",
+      "instructions": [
+        "buildDataListWithOptions"
+      ],
+      "options": {}
+    }
+  },
+  "selectOptionsOnly": {
+    "simple": {
+      "baseFromSpec": "selectOptionsOnlyBase",
+      "instructions": [
+        "buildOptionsArray"
+      ],
+      "options": {}
+    }
+  },
+  "searchInput": {
+    "simple": {
+      "baseFromSpec": "searchInputBase",
+      "instructions": [],
+      "options": {}
+    }
+  },
+  "form": {
+    "simple": {
+      "baseFromSpec": "formSimple",
+      "instructions": [
+        "buildFormField"
+      ],
+      "options": {}
+    }
+  },
+  "accordion": {
+    "simple": {
+      "baseFromSpec": "accordionSimple",
+      "instructions": [
+        "buildAccordionItems"
+      ],
+      "options": {}
+    },
+    "flush": {
+      "baseFromSpec": "accordionFlush",
+      "instructions": [
+        "buildAccordionItems"
+      ],
+      "options": {}
+    }
+  },
+  "card": {
+    "simple": {
+      "baseFromSpec": "cardSimple",
+      "instructions": [
+        "buildCardBody"
+      ],
+      "options": {}
+    },
+    "withHeader": {
+      "baseFromSpec": "cardWithHeader",
+      "instructions": [
+        "buildCardHeader",
+        "buildCardBody"
+      ],
+      "options": {}
+    },
+    "withFooter": {
+      "baseFromSpec": "cardWithFooter",
+      "instructions": [
+        "buildCardHeader",
+        "buildCardBody",
+        "buildCardFooter"
+      ],
+      "options": {}
+    },
+    "imageTop": {
+      "baseFromSpec": "cardImageTop",
+      "instructions": [
+        "buildCardBody"
+      ],
+      "options": {}
+    }
+  },
+  "list": {
+    "simple": {
+      "baseFromSpec": "listSimple",
+      "instructions": [
+        "buildListItems"
+      ],
+      "options": {}
+    },
+    "group": {
+      "baseFromSpec": "listGroup",
+      "instructions": [
+        "buildListGroupItems"
+      ],
+      "options": {}
+    },
+    "ordered": {
+      "baseFromSpec": "listOrdered",
+      "instructions": [
+        "buildListGroupItems"
+      ],
+      "options": {}
+    }
+  },
+  "menu": {
+    "simple": {
+      "baseFromSpec": "menuSimple",
+      "instructions": [
+        "buildMenuItems"
+      ],
+      "options": {}
+    },
+    "cards": {
+      "baseFromSpec": "menuCardsBase",
+      "instructions": [
+        "buildMenuCards"
+      ],
+      "options": {}
+    }
+  }
+}
