@@ -1,0 +1,33 @@
+{
+  "simple": {
+    "items": [
+      { "text": "Dashboard Overview", "href": "#dashboard" },
+      { "text": "Product Inventory", "href": "#inventory" },
+      { "text": "Customer Management", "href": "#customers" },
+      { "text": "Analytics & Reports", "href": "#analytics" },
+      { "text": "System Settings", "href": "#settings" }
+    ]
+  },
+  "cards": {
+    "items": [
+      {
+        "title": "Data Pipeline",
+        "description": "Ingest, transform, and clean raw datasets automatically.",
+        "href": "#pipeline",
+        "actionText": "Configure Pipeline"
+      },
+      {
+        "title": "API Gateway",
+        "description": "Manage routes, rate-limits, and token authentications.",
+        "href": "#gateway",
+        "actionText": "Manage Endpoints"
+      },
+      {
+        "title": "User Permissions",
+        "description": "RBAC access control, roles, and session policies.",
+        "href": "#roles",
+        "actionText": "Edit Roles"
+      }
+    ]
+  }
+}

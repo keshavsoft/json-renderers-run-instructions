@@ -1,0 +1,18 @@
+{
+  "group": {
+    "items": [
+      { "text": "Inbox Messages", "badge": "14" },
+      { "text": "Pending Reviews", "badge": "3" },
+      { "text": "Draft PRs", "badge": "7" },
+      { "text": "Deployment Alerts", "badge": "0" }
+    ]
+  },
+  "ordered": {
+    "items": [
+      { "text": "Clone repository and switch to feature branch", "badge": "Step 1" },
+      { "text": "Define HTML node specs in spec.json", "badge": "Step 2" },
+      { "text": "Configure transformation instructions in instructions.json", "badge": "Step 3" },
+      { "text": "Export blueprints in definitions.json", "badge": "Step 4" }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "simple": {
+    "title": "Clean Declarative Card",
+    "text": "This card body is rendered entirely from JSON using applyTemplate."
+  },
+  "withHeader": {
+    "headerTitle": "Analytics Report",
+    "title": "Quarterly Performance",
+    "text": "Revenue and conversion rates reached all-time highs this quarter."
+  },
+  "withFooter": {
+    "headerTitle": "System Status",
+    "title": "All Services Operational",
+    "text": "Continuous automated validation running with 100% test pass rate.",
+    "footerText": "Last verified: Just now"
+  }
+}

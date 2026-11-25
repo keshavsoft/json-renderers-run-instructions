@@ -1,0 +1,23 @@
+{
+  "formColumns": [
+    { "columnName": "CustomerName" },
+    { "columnName": "EmailAddress" },
+    { "columnName": "ContactNumber" }
+  ],
+  "selectColumns": [
+    {
+      "columnName": "AccountType",
+      "options": ["Enterprise", "Business", "Individual", "Partner"]
+    },
+    {
+      "columnName": "BillingCycle",
+      "options": ["Monthly", "Quarterly", "Annually"]
+    }
+  ],
+  "dataListColumns": [
+    {
+      "columnName": "PreferredCloudRegion",
+      "options": ["us-central1 (Iowa)", "asia-south1 (Mumbai)", "europe-west1 (Belgium)", "asia-east1 (Taiwan)"]
+    }
+  ]
+}

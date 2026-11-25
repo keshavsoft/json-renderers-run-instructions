@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        if (!location.pathname.endsWith('/') && !location.pathname.endsWith('.html')) {
+            location.replace(location.pathname + '/' + location.search + location.hash);
+        }
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compose Showcases | V15 Samples</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .card {
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+        }
+    </style>
+</head>
+
+<body class="py-5">
+    <div class="container" style="max-width: 900px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <a href="../" class="text-decoration-none small text-muted">&larr; Back to Launch Pad</a>
+                <h3 class="fw-bold mb-0 mt-1">Compose Showcases</h3>
+                <p class="text-muted small mb-0">Compound real-world applications assembling Direct controls and Containers</p>
+            </div>
+            <span class="badge bg-purple-subtle text-purple border border-purple px-3 py-2" style="background:#f3e8ff; color:#7e22ce; border-color:#d8b4fe;">Compose Tier</span>
+        </div>
+
+        <div class="row g-4">
+            <!-- Form with Controls -->
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0 border-start border-4" style="border-left: 4px solid #a855f7 !important;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0">Form with Controls</h5>
+                            <span class="badge" style="background:#f3e8ff; color:#7e22ce;">Compound Form</span>
+                        </div>
+                        <p class="text-muted small flex-grow-1">
+                            Multi-component integration embedding <code>form.simple</code>, direct <code>select.simple</code> dropdowns, and an autocomplete <code>dataList.simple</code> into one unified onboarding workflow.
+                        </p>
+                        <a href="./formWithControls/" class="btn btn-outline-secondary w-100 mt-3" style="color: #7e22ce; border-color: #c084fc;">Open Form Compose &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard with Table -->
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0 border-start border-4" style="border-left: 4px solid #a855f7 !important;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="fw-bold mb-0">Analytics Dashboard</h5>
+                            <span class="badge" style="background:#f3e8ff; color:#7e22ce;">Compound Dashboard</span>
+                        </div>
+                        <p class="text-muted small flex-grow-1">
+                            Complete dashboard layout assembling KPI summary cards (<code>menu.cards</code>) with a real-time data table (<code>table.simple</code>) equipped with search toolbar and serial counters.
+                        </p>
+                        <a href="./dashboardWithTable/" class="btn btn-outline-secondary w-100 mt-3" style="color: #7e22ce; border-color: #c084fc;">Open Dashboard Compose &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+

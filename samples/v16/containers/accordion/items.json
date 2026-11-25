@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "title": "What is Antigravity Declarative UI?",
+      "content": "It is an architecture where UI structure, data transformations, and rendering behavior are 100% defined in declarative JSON specifications rather than imperative code."
+    },
+    {
+      "id": "2",
+      "title": "How does spec-repo work?",
+      "content": "spec-repo acts as the single source of truth for all HTML specs, assembly instructions, and component definitions across the entire ecosystem."
+    },
+    {
+      "id": "3",
+      "title": "Can new components be added without writing JavaScript?",
+      "content": "Yes! Adding a new component (like this accordion, cards, or menus) only requires defining the template in spec.json, the recipe in instructions.json, and the blueprint in definitions.json."
+    }
+  ]
+}

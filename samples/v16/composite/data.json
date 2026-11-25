@@ -1,0 +1,40 @@
+{
+  "columns": [
+    { "columnName": "ItemName" },
+    { "columnName": "Category" },
+    { "columnName": "BaseUnit" },
+    { "columnName": "Price" }
+  ],
+  "data": [
+    {
+      "ItemName": "High Tensile Bolt",
+      "Category": "Fasteners",
+      "BaseUnit": "kgs",
+      "Price": "120"
+    },
+    {
+      "ItemName": "Galvanized Wire Coil",
+      "Category": "Raw Materials",
+      "BaseUnit": "kgs",
+      "Price": "85"
+    },
+    {
+      "ItemName": "Stainless Steel Rod",
+      "Category": "Raw Materials",
+      "BaseUnit": "pcs",
+      "Price": "240"
+    },
+    {
+      "ItemName": "Industrial Power Cable",
+      "Category": "Electrical",
+      "BaseUnit": "mtrs",
+      "Price": "310"
+    }
+  ],
+  "categoriesDataList": [
+    {
+      "columnName": "CategoryList",
+      "options": ["Fasteners", "Raw Materials", "Electrical", "Hydraulics", "Pneumatics", "Tools", "Safety Equipment"]
+    }
+  ]
+}

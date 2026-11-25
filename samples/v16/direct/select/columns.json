@@ -1,0 +1,14 @@
+[
+  {
+    "columnName": "Department",
+    "options": ["Engineering", "Product Management", "Quality Assurance", "DevOps", "Design"]
+  },
+  {
+    "columnName": "PriorityLevel",
+    "options": ["Low", "Medium", "High", "Critical"]
+  },
+  {
+    "columnName": "Location",
+    "options": ["Remote", "Bengaluru", "Hyderabad", "San Francisco", "London"]
+  }
+]

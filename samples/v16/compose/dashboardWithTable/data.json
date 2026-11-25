@@ -1,0 +1,34 @@
+{
+  "kpiCards": [
+    {
+      "title": "Total Revenue",
+      "description": "$124,592.00 (+14.2% vs last month)",
+      "href": "#revenue",
+      "actionText": "View Financials"
+    },
+    {
+      "title": "Active Orders",
+      "description": "1,429 shipments currently in fulfillment transit.",
+      "href": "#orders",
+      "actionText": "Track Shipments"
+    },
+    {
+      "title": "System Health",
+      "description": "99.99% uptime with 0 critical incidents reported.",
+      "href": "#status",
+      "actionText": "View Telemetry"
+    }
+  ],
+  "tableColumns": [
+    { "columnName": "InvoiceID" },
+    { "columnName": "Customer" },
+    { "columnName": "Amount" },
+    { "columnName": "Status" }
+  ],
+  "tableData": [
+    { "InvoiceID": "INV-10921", "Customer": "Acme Corp", "Amount": "$12,450", "Status": "Paid" },
+    { "InvoiceID": "INV-10922", "Customer": "Globex Inc", "Amount": "$4,200", "Status": "Processing" },
+    { "InvoiceID": "INV-10923", "Customer": "Soylent Corp", "Amount": "$8,900", "Status": "Pending" },
+    { "InvoiceID": "INV-10924", "Customer": "Initech LLC", "Amount": "$2,100", "Status": "Paid" }
+  ]
+}

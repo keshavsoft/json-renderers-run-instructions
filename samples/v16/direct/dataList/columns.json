@@ -1,0 +1,10 @@
+[
+  {
+    "columnName": "BrowserDatalist",
+    "options": ["Google Chrome", "Mozilla Firefox", "Apple Safari", "Microsoft Edge", "Brave", "Opera"]
+  },
+  {
+    "columnName": "ProgrammingLanguages",
+    "options": ["JavaScript", "TypeScript", "Python", "Rust", "Go", "Java", "C++"]
+  }
+]

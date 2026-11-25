@@ -1,6 +1,6 @@
 {
   "name": "json-renderers-run-instructions",
-  "version": "1.15.2",
+  "version": "1.16.1",
   "description": "Reusable instruction execution and JSON-to-DOM mounting runtime for JSON renderers",
   "type": "module",
   "main": "src/index.js",
@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "declarative-definitions": "^1.2.1",
+    "declarative-instructions": "^1.2.1",
     "declarative-spec": "^1.2.1",
-    "json-renderers-run-instructions-steps": "^1.7.1",
-    "json-renderers-run-options": "^1.2.1",
+    "json-renderers-run-instructions-steps": "file:../json-renderers-run-instructions-steps",
     "json-write-path": "^1.6.1",
     "jsonpathly": "^4.0.0"
   },
