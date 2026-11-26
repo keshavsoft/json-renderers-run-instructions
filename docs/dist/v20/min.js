@@ -29,7 +29,7 @@ var e = {
 			baseFromSpec: "tableSimple",
 			instructions: [
 				"buildColgroup",
-				"tableHeaderClickable",
+				"buildHeaderClickable",
 				"buildBody"
 			]
 		}
@@ -120,8 +120,23 @@ var e = {
 	});
 }, r = e;
 n(e);
-// node_modules/declarative-instructions/src/v2/index.js
+// node_modules/declarative-instructions/src/v3/index.js
 var i = {
+	buildHeaderClickable: {
+		type: "single",
+		narration: "Build table header",
+		destinationPath: {
+			fileName: "base",
+			filePath: ["children"],
+			jsonPath: "$..*[?@.attributes['data-role'] == 'table-header-row']"
+		},
+		sourcePath: {
+			fileName: "data",
+			jsonPath: "$.columns"
+		},
+		templateKey: "tableHeaderClickable",
+		func: "fromCollection"
+	},
 	buildColgroup: {
 		type: "single",
 		narration: "Build column widths",
