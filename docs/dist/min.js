@@ -24,6 +24,14 @@ var e = {
 		bodyOnly: {
 			baseFromSpec: "tableBodyOnly",
 			instructions: ["buildBody"]
+		},
+		simpleSortable: {
+			baseFromSpec: "tableSimple",
+			instructions: [
+				"buildColgroup",
+				"tableHeaderClickable",
+				"buildBody"
+			]
 		}
 	},
 	select: { simple: {
