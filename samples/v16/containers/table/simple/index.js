@@ -6,7 +6,7 @@ const start = () => {
     try {
         const spec = window.ks.jsonRenderers.runInstructions.render.renderFunc({
             instructionMainKey: "table",
-            instructionSubKey: "withFooter",
+            instructionSubKey: "simple",
             data: { columns, data },
             options: {
                 search1: {
