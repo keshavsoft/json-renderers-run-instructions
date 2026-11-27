@@ -1,5 +1,5 @@
 import dashboardData from "./data.json" with { type: "json" };
-import "../../../../docs/dist/v15/min.js";
+import "../../../../docs/dist/v22/min.js";
 
 const start = () => {
     try {

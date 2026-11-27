@@ -1,6 +1,6 @@
 {
   "name": "json-renderers-run-instructions",
-  "version": "1.21.1",
+  "version": "1.22.2",
   "description": "Reusable instruction execution and JSON-to-DOM mounting runtime for JSON renderers",
   "type": "module",
   "main": "src/index.js",
@@ -15,6 +15,13 @@
     "build": "npx @keshavsoft/build-cli"
   },
   "dependencies": {
+    "declarative-definitions": "^1.6.1",
+    "declarative-instructions-multi": "^1.4.2",
+    "declarative-instructions-single": "^1.5.2",
+    "declarative-spec": "^1.4.1",
+    "json-renderers-run-instructions-steps": "^1.14.2"
+  },
+  "dependencies1": {
     "declarative-definitions": "file:../declarative-definitions",
     "declarative-instructions-multi": "file:../declarative-instructions-multi",
     "declarative-instructions-single": "file:../declarative-instructions-single",

@@ -1,24 +1,24 @@
 import columns from "./columns.json" with { type: "json" };
 import data from "./data.json" with { type: "json" };
-import "../../../../../docs/dist/v21/min.js";
+import "../../../../../docs/dist/v22/min.js";
 
 const start = () => {
     try {
         const spec = window.ks.jsonRenderers.runInstructions.render.renderFunc({
             instructionMainKey: "table",
-            instructionSubKey: "simpleSortable",
+            instructionSubKey: "withFooter",
             data: { columns, data },
             options: {
-                search: {
+                search1: {
                     showLabel: true,
                     showHelper: true,
                     showInput: true
                 },
                 serial: true,
-                options: {
-                    showButton: true,
-                    showEditButton: true,
-                    showDeleteButton: true
+                options1: {
+                    showButton: false,
+                    showEditButton: false,
+                    showDeleteButton: false
                 }
             }
         });

@@ -1,5 +1,5 @@
 import compositeData from "./data.json" with { type: "json" };
-import "../../../docs/dist/v15/min.js";
+import "../../../docs/dist/v22/min.js";
 
 let selectedRowIndex = null;
 
@@ -157,7 +157,7 @@ const saveFormToRow = () => {
     const cells = targetRow.querySelectorAll("td");
     if (cells[1]) cells[1].textContent = inputName;
     if (cells[2]) cells[2].textContent = inputCat;
-    if (cells[3]) cells[3].textContent = baseUnit;
+    if (cells[3]) cells[3].textContent = inputUnit;
     if (cells[4]) cells[4].textContent = inputPrice;
 
     const banner = document.getElementById("status-feedback");
