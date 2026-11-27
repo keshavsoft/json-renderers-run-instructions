@@ -20,7 +20,7 @@
 
     <!-- Runtime Libraries via CDN / Local Dist -->
     <script type="module" src="https://keshavsoft.github.io/json-to-dom/dist/v42/min.js"></script>
-    <script type="module" src="../dist/v15/min.js"></script>
+    <script type="module" src="../dist/v22/min.js"></script>
 
     <style>
         :root {
@@ -195,7 +195,7 @@
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
             <div>
                 <span class="badge bg-primary-subtle text-primary border border-primary px-3 py-1 mb-2 fw-semibold">Independent UI Studio</span>
-                <h2 class="fw-bold text-dark mb-1">Live V15 Execution Playground</h2>
+                <h2 class="fw-bold text-dark mb-1">Live V22 Execution Playground</h2>
                 <p class="text-secondary mb-0 small">Standalone playground: select a category and method, edit the JSON configuration in real-time, and hit <strong>Build UI</strong> to render immediately!</p>
             </div>
             <div>
@@ -293,7 +293,7 @@
 
                     <div class="p-2 bg-light border-top small text-muted d-flex justify-content-between align-items-center">
                         <span id="footer-sample-path"><i class="bi bi-shield-check text-success me-1"></i>Instruction: table.simple</span>
-                        <span class="badge bg-light text-secondary border font-monospace">Architecture V15</span>
+                        <span class="badge bg-light text-secondary border font-monospace">Architecture V22</span>
                     </div>
                 </div>
             </div>
@@ -303,7 +303,7 @@
     <!-- FOOTER -->
     <footer class="py-4 bg-white border-top text-center text-muted small mt-auto">
         <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
-            <span>&copy; 2026 <strong>json-renderers-run-instructions</strong>. Architecture V15.</span>
+            <span>&copy; 2026 <strong>json-renderers-run-instructions</strong>. Architecture V22.</span>
             <div class="d-flex gap-3">
                 <a href="../index.html" class="text-decoration-none text-muted">Home</a>
                 <a href="the-story.html" class="text-decoration-none text-muted">Story</a>
@@ -489,8 +489,8 @@
                                 body: "It is the unified runtime execution engine that coordinates declarative component blueprints, merges data collections, and executes instructions into complete JSON specifications."
                             },
                             {
-                                title: "How does V15 improve architecture?",
-                                body: "V15 introduces cleanly separated declarative-definitions and declarative-spec packages, giving developers granular control with modular imports."
+                                title: "How does V22 improve architecture?",
+                                body: "V22 introduces cleanly separated declarative-definitions and declarative-spec packages, giving developers granular control with modular imports."
                             },
                             {
                                 title: "Does it create direct DOM nodes?",
@@ -608,7 +608,7 @@
                                 { columnName: "assignee", width: "180px" }
                             ],
                             data: [
-                                { ticketId: "T-101", issueTitle: "Upgrade CDN bundle to V15", priority: "High", assignee: "Keshav" },
+                                { ticketId: "T-101", issueTitle: "Upgrade CDN bundle to V22", priority: "High", assignee: "Keshav" },
                                 { ticketId: "T-102", issueTitle: "Verify JSON specs in Playground", priority: "Critical", assignee: "Srinivaas" },
                                 { ticketId: "T-103", issueTitle: "Benchmark runInstructions Steps", priority: "Medium", assignee: "Architecture Team" }
                             ]
@@ -736,7 +736,7 @@
                 const appendToDom = window.ks?.jsonToDom?.appendToDom;
 
                 if (typeof renderFunc !== "function") {
-                    throw new Error("V15 Engine (renderFunc) is still initializing or script not loaded. Check script imports.");
+                    throw new Error("V22 Engine (renderFunc) is still initializing or script not loaded. Check script imports.");
                 }
 
                 // 1. Generate JSON Spec using the Core Engine

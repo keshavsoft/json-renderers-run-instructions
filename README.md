@@ -1,189 +1,73 @@
 # json-renderers-run-instructions
 
-> **Universal, declarative instruction runner for JSON-driven specification builders.**  
-> Decouples instruction dispatch from component semantics — zero DOM, pure data transformation.
+A high-level runtime that turns a component definition, data, and options into a completed JSON UI specification.
 
-[![npm version](https://img.shields.io/npm/v/json-renderers-run-instructions.svg?color=cb3837&logo=npm)](https://www.npmjs.com/package/json-renderers-run-instructions)
-[![npm downloads](https://img.shields.io/npm/dm/json-renderers-run-instructions.svg?color=2563eb)](https://www.npmjs.com/package/json-renderers-run-instructions)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![CDN Bundle](https://img.shields.io/badge/CDN-dist%2Fmin.js-orange.svg)](https://keshavsoft.github.io/json-renderers-run-instructions/dist/min.js)
-[![Documentation](https://img.shields.io/badge/Documentation-Live%20Docs-2563eb.svg)](https://keshavsoft.github.io/json-renderers-run-instructions/)
+## The story
 
-## 📖 The Story: Why This Exists
+A caller chooses a component family and variant, such as <code>table.simple</code>. The runtime looks up that definition, clones its base specification, combines the required instruction descriptors with descriptors derived from the caller’s options, and delegates the work to <code>json-renderers-run-instructions-steps</code>. It returns the completed JSON tree.
 
-### The Monolithic Problem
+The runtime coordinates the pipeline. Definitions describe the component recipe; the spec catalog supplies the starting tree and templates; single and multi instruction catalogs describe the operations; the step runner applies them. This package returns JSON and does not mount browser DOM.
 
-In early declarative architectures, specification builders (such as `json-renderers-build-table`) were monolithic. The logic that iterated over columns, stamped table headers, computed cells, and mounted elements to the DOM was tightly fused with the instruction execution mechanism.
+## Quick start
 
-This created three architectural hurdles:
+~~~~js
+import renderFunc from "json-renderers-run-instructions";
 
-1. **Tight Coupling**: You could not run declarative JSON instructions for other UI structures (lists, forms, cards, navigation trees) without importing table-specific baggage.
-2. **Untestable Side Effects**: Mixing instruction traversal with spec repository lookups (`spec-repo`) made unit tests dependent on specific schema definitions.
-3. **Rigid Pipelines**: Transforming two-dimensional structures (such as rows × columns) required bespoke nested loops duplicated across every new component builder.
-
-### The Extraction: Pure Instruction Runtime
-
-`json-renderers-run-instructions` extracts the core execution engine into a standalone, ultra-lean runtime.
-
-- **It knows nothing about HTML or the DOM.**
-- **It knows nothing about tables, cells, or CSS.**
-- **It knows nothing about `spec-repo` definitions.**
-
-Its sole responsibility is deterministic instruction dispatch: taking declarative **1D (Single)** and **2D (Double)** instruction sequences and executing them against a **Shared Registry**.
-
----
-
-## 🏗️ Architecture & Concept
-
-### The Shared Registry Pattern
-
-Instead of passing data through fragile intermediate stages, `runInstructions` operates on an in-memory **Registry** blackboard. The caller provisions the inputs (source arrays, options) and an initial specification shell (`base`). The instruction runners mutate and populate the specification in-place.
-
-```
-                  ┌───────────────────────────────┐
-                  │           Registry            │
-                  │  ┌──────────────┬──────────┐  │
-                  │  │ data / source│ options  │  │
-                  │  ├──────────────┴──────────┤  │
-                  │  │     base (target spec)  │  │
-                  │  └─────────────────────────┘  │
-                  └───────────────┬───────────────┘
-                                  │
-          ┌───────────────────────┴───────────────────────┐
-          │                                               │
-          ▼ Phase 1: 1D Traversal                         ▼ Phase 2: 2D Traversal
-┌───────────────────────────────────┐           ┌───────────────────────────────────┐
-│     json-instruction-single       │           │     json-instruction-double       │
-│                                   │           │                                   │
-│  - Column headers                 │           │  - Matrix generation (rows×cols)  │
-│  - Colgroup widths                │           │  - Nested cell calculations       │
-│  - Linear arrays                  │           │  - 2D grid population             │
-└─────────────────┬─────────────────┘           └─────────────────┬─────────────────┘
-                  │                                               │
-                  └───────────────────────┬───────────────────────┘
-                                          │
-                                          ▼
-                         ┌─────────────────────────────────┐
-                         │   Completed JSON Specification  │
-                         │   (Ready for json-to-dom / API) │
-                         └─────────────────────────────────┘
-```
-
----
-
-## 📦 Installation
-
-### Via npm
-
-```bash
-npm install json-renderers-run-instructions
-```
-
-### Via Browser CDN (ES Module)
-
-```html
-<script type="module">
-  import { runInstructions } from "https://keshavsoft.github.io/json-renderers-run-instructions/dist/min.js";
-</script>
-```
-
----
-
-## 🚀 Quick Start
-
-```javascript
-import { runInstructions } from "json-renderers-run-instructions";
-
-// 1. Prepare target base specification and source data
-const base = {
-  tagName: "table",
-  children: [
-    { tagName: "thead", children: [{ tagName: "tr", children: [] }] },
-    { tagName: "tbody", children: [] },
-  ],
-};
-
-const registry = {
-  data: {
-    columns: [{ columnName: "item" }, { columnName: "qty" }],
-    data: [
-      { item: "Apples", qty: 10 },
-      { item: "Oranges", qty: 25 },
-    ],
-  },
-  base,
-  showSerial: true,
-};
-
-// 2. Define single (1D) and double (2D) instructions
-const single = [
-  // Array of instructions executed by json-instruction-single
-];
-
-const double = [
-  // Array of instructions executed by json-instruction-double
-];
-
-// 3. Execute instructions against the registry
-runInstructions({
-  single,
-  double,
-  registry,
-  showLog: false,
+const tableSpec = renderFunc({
+  instructionMainKey: "table",
+  instructionSubKey: "withFooter",
+  data: { columns, data },
+  options: {
+    search: {
+      showLabel: true,
+      showHelper: true,
+      showInput: true
+    },
+    serial: true
+  }
 });
+~~~~
 
-// `registry.base` now contains the fully resolved specification!
-console.log(registry.base);
-```
+This follows the current V16 table sample. The result is a JSON specification; a separate renderer such as <code>json-to-dom</code> can mount it in a browser.
 
----
+## Runtime sequence
 
-## 📚 API Reference
+1. Resolve the component definition using <code>instructionMainKey</code> and <code>instructionSubKey</code>.
+2. Clone the definition’s <code>baseFromSpec</code> template so each render starts with a fresh tree.
+3. Read the required instruction descriptors from <code>instructions-type</code>.
+4. Walk the options object and append matching single or multi instruction descriptors.
+5. Pass the ordered descriptors, cloned base, and data to the step runner; return the mutated base.
 
-### `runInstructions({ single, double, registry, showLog })`
+## API
 
-Executes single- and double-target instruction arrays against the shared registry.
+The default export accepts:
 
-| Parameter  | Type      | Default | Description                                                                  |
-| ---------- | --------- | ------- | ---------------------------------------------------------------------------- |
-| `single`   | `Array`   | `[]`    | List of 1D single-target instructions passed to `json-instruction-single`.   |
-| `double`   | `Array`   | `[]`    | List of 2D double-target instructions passed to `json-instruction-double`.   |
-| `registry` | `Object`  | `{}`    | Shared state blackboard holding `data`, `base`, and optional configurations. |
-| `showLog`  | `boolean` | `false` | Enable console diagnostic logs during execution.                             |
+| Parameter | Purpose |
+| --- | --- |
+| <code>instructionMainKey</code> | Component family, for example <code>table</code>. |
+| <code>instructionSubKey</code> | Variant within that family, for example <code>simple</code> or <code>withFooter</code>. |
+| <code>data</code> | Input values used by the selected instructions. |
+| <code>options</code> | Optional nested feature choices. Omit it when no optional features are needed. |
+| <code>showLog</code> | Optional logging flag, defaulting to <code>false</code>. |
 
-**Returns**: The mutated `registry` object.
+The function returns the completed JSON specification. In a browser bundle, it is also registered at <code>window.ks.jsonRenderers.runInstructions.render.renderFunc</code>.
 
-**Throws**:
+## Explore the current sample
 
-- `TypeError("single instructions must be an array")`
-- `TypeError("double instructions must be an array")`
-- `TypeError("registry must be an object")`
+The highest sample set is [V16](samples/v16/index.html). It includes tables, forms, lists, menus, direct controls, and composed layouts such as a dashboard with a table.
 
----
+- [API guide](docs/pages/api-guide.html)
+- [Execution story](docs/pages/the-story.html)
+- [Architecture](docs/pages/architecture.html)
+- [Sample gallery](docs/pages/samples-showcase.html)
 
-## 🧩 The Instruction Pipeline
+## Install
 
-### 1. Single Instructions (`json-instruction-single`)
+~~~~bash
+npm install json-renderers-run-instructions
+~~~~
 
-Single instructions handle linear, one-dimensional collections. They read from a 1D source path in the registry (e.g., `data.columns`) and stamp out corresponding element specifications (e.g., `<col>`, `<th>`).
+## License
 
-### 2. Double Instructions (`json-instruction-double`)
+MIT © KeshavSoft.
 
-Double instructions handle nested Cartesian products and 2D grid spaces. They iterate over an outer collection (e.g., data rows) and an inner collection (e.g., column definitions), stamping out multidimensional specs (e.g., `<tr>` rows holding `<td>` cells).
-
----
-
-## 🌐 Related Ecosystem Projects
-
-| Package                                                                                                  | Purpose                                                                     |
-| -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| **[`json-instruction-single`](https://www.npmjs.com/package/json-instruction-single)**                   | Low-level 1D single-target instruction executor.                            |
-| **[`json-instruction-double`](https://www.npmjs.com/package/json-instruction-double)**                   | Low-level 2D grid / matrix instruction executor.                            |
-| **[`json-renderers-from-instructions`](https://github.com/keshavsoft/json-renderers-from-instructions)** | Instruction-driven table specification builder built on top of this runner. |
-| **[`@keshavsoft/json-to-dom`](https://www.npmjs.com/package/@keshavsoft/json-to-dom)**                   | Zero-dependency DOM mounting engine for rendered JSON specifications.       |
-
----
-
-## 📄 License
-
-MIT © [KeshavSoft](https://github.com/keshavsoft)

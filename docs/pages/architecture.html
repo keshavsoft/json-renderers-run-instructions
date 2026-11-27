@@ -167,7 +167,7 @@
                     <li class="nav-item"><a class="nav-link " href="api-guide.html">API</a></li>
                     <li class="nav-item"><a class="nav-link text-primary fw-bold" href="playground.html"><i class="bi bi-play-circle-fill me-1"></i>Playground</a></li>
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-outline-primary nav-launch-btn" href="../../samples/v15/index.html" target="_blank">
+                        <a class="btn btn-outline-primary nav-launch-btn" href="../../samples/v16/index.html" target="_blank">
                             <i class="bi bi-rocket-takeoff-fill me-1"></i> Launch Pad &nearr;
                         </a>
                     </li>
@@ -246,15 +246,11 @@
                     <h4 class="fw-bold text-dark mb-0">Execute the Instructions</h4>
                 </div>
                 <p class="text-secondary">
-                    The engine passes the instructions, base structure, and input data to <code>json-renderers-run-instructions-steps</code>. These instructions update the base specification according to the selected component definition.
+                    V22 reads the required descriptors from <code>definition["instructions-type"]</code>, resolves enabled features in the caller's nested <code>options</code> tree, and appends the resulting single or multi descriptors. It sends that one ordered list, the cloned base, and the data to <code>json-renderers-run-instructions-steps</code>.
                 </p>
                 <div class="code-box">
-                    runInstructions({<br>
-                    &nbsp;&nbsp;instructions: definition.instructions ?? [],<br>
-                    &nbsp;&nbsp;base,<br>
-                    &nbsp;&nbsp;data,<br>
-                    &nbsp;&nbsp;showLog<br>
-                    });
+                    const instructions = [...(definition["instructions-type"] ?? []), ...optionSteps];<br>
+                    runInstructions({ instructions, base, data, showLog });
                 </div>
             </div>
 
@@ -265,16 +261,11 @@
                     <h4 class="fw-bold text-dark mb-0">Apply Configuration Options</h4>
                 </div>
                 <p class="text-secondary">
-                    The engine passes the selected options to <code>runOptions</code>. Supported features (such as search boxes, serial numbers, custom action buttons, or styles) are applied to the generated specification.
+                    Optional features are ordinary instruction descriptors in the same ordered run. A feature such as search is resolved from the catalog; the steps runner executes its descriptor after the component's required steps, against the same state.
                 </p>
                 <div class="code-box">
-                    runOptions({<br>
-                    &nbsp;&nbsp;options,<br>
-                    &nbsp;&nbsp;optionDefs,<br>
-                    &nbsp;&nbsp;base,<br>
-                    &nbsp;&nbsp;data,<br>
-                    &nbsp;&nbsp;showLog<br>
-                    });
+                    optionSteps = resolveOptionSteps({ options });<br>
+                    instructions = [...baseSteps, ...optionSteps];
                 </div>
             </div>
 
@@ -285,16 +276,13 @@
                     <h4 class="fw-bold text-dark mb-0">Return the Completed Specification</h4>
                 </div>
                 <p class="text-secondary">
-                    The engine returns the completed JSON specification. This output can then be passed to <code>jsonToDom</code> to create and display the actual HTML elements in the browser.
+                    The runtime returns the completed JSON specification tree. It does not mount browser elements; the caller can pass the returned tree to a DOM renderer when a visible page is needed.
                 </p>
                 <div class="code-box">
                     // 1. Return completed spec<br>
                     return base;<br><br>
-                    // 2. Pass to jsonToDom for instant browser mounting<br>
-                    window.ks.jsonToDom.appendToDom({<br>
-                    &nbsp;&nbsp;jsonSpec: spec,<br>
-                    &nbsp;&nbsp;targetHtmlId: "dom-render-container"<br>
-                    });
+                    // A separate renderer owns DOM mounting.<br>
+                    return base;
                 </div>
             </div>
 

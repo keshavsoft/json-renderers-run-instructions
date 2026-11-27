@@ -1,94 +1,89 @@
-# Architecture Deep-Dive: json-renderers-run-instructions
+# V22 runtime story: json-renderers-run-instructions
 
-## 1. Design Motivation: Decoupling the Runtime
+This package turns a component definition, its data, and optional feature choices into a completed JSON specification tree.
 
-The primary goal of `json-renderers-run-instructions` is **architectural purity**:
-separating **how** instructions are executed from **what** domain structure (table, card, form, tree) is being generated.
+## Its responsibility
 
-```
-+--------------------------------------------------------------+
-|                     Domain Layer                             |
-|  (e.g., json-renderers-from-instructions, buildTableSpec)    |
-|  - Table semantics: columns, data rows, colgroup             |
-|  - Uses templates and specs from spec-repo                   |
-+------------------------------+-------------------------------+
-                               |
-                               | passes { single, double, registry }
-                               v
-+--------------------------------------------------------------+
-|                 Execution Runtime Layer                      |
-|            (json-renderers-run-instructions)                 |
-|  - Zero DOM dependencies                                     |
-|  - Zero domain knowledge (no idea what a table is)           |
-|  - Deterministic instruction execution                      |
-+------------------------------+-------------------------------+
-                               |
-            +------------------+------------------+
-            |                                     |
-            v                                     v
-+-----------------------+             +-----------------------+
-| json-instruction-single|             | json-instruction-double|
-| (1D Array Pipeline)   |             | (2D Grid / Matrix)    |
-+-----------------------+             +-----------------------+
-```
+The runtime coordinates existing catalogs and executors. It does not define table templates, implement row and column transformations, or mount browser DOM.
 
----
+- <code>declarative-definitions</code> selects the component variant and describes its required instruction types.
+- <code>declarative-spec</code> provides the starting specification tree.
+- <code>json-renderers-run-instructions-steps</code> executes the ordered single and multi descriptors.
+- This package resolves options into additional descriptors and returns the completed tree.
 
-## 2. The Shared Registry Model
+## The render sequence
 
-The registry is an in-memory blackboard object:
+The V22 entry point in <code>src/v22/index.js</code> follows this sequence:
 
-```typescript
-interface Registry {
-  // Source inputs
-  data: {
-    columns: Array<any>;
-    data: Array<any>;
-    [key: string]: any;
-  };
-  
-  // Destination target spec tree (mutated in place)
-  base: {
-    tagName: string;
-    attributes?: Record<string, any>;
-    children?: Array<any>;
-    [key: string]: any;
-  };
+1. Look up the definition at <code>definitions[instructionMainKey][instructionSubKey]</code>.
+2. Read the definition’s <code>baseFromSpec</code> and clone that template with <code>structuredClone</code>.
+3. Take required descriptors from <code>definition["instructions-type"]</code>.
+4. Walk the optional <code>options</code> tree. For each enabled choice, resolve a matching single or multi instruction key and avoid adding the same descriptor twice.
+5. Append those option descriptors after the required descriptors and pass the ordered list, cloned base, and data to the steps runner.
+6. Return the completed base tree.
 
-  // Additional options or flags
-  [optionKey: string]: any;
-}
-```
+The result is a JSON specification. A separate renderer such as <code>json-to-dom</code> can mount that tree in a browser.
 
-### Why In-Place Mutation of Registry?
-1. **Memory efficiency**: Generating large DOM specifications (e.g., 500 rows × 20 columns = 10,000 cell objects) with immutable copy operations (`structuredClone` on every instruction step) leads to severe memory pressure and GC pauses.
-2. **Determinism**: The execution order is strictly synchronous: Single instructions first (1D preparation), then Double instructions (2D matrix generation).
-3. **Inspectability**: At any step, passing `showLog: true` prints the state of the registry for easy debugging.
+## Quick start
 
----
+This follows the V16 <code>table.withFooter</code> sample:
 
-## 3. Instruction Phases
+~~~~js
+import renderFunc from "json-renderers-run-instructions";
 
-### Phase 1: Single Instructions (1D)
-- Powered by `json-instruction-single`.
-- Used when an operation maps from a 1D collection (such as `columns`) to target spec nodes (such as `<col>` or `<th>`).
-- Each instruction specifies:
-  - Source path inside the registry.
-  - Template or transformer function.
-  - Target path inside `registry.base.children`.
+const tableSpec = renderFunc({
+  instructionMainKey: "table",
+  instructionSubKey: "withFooter",
+  data: { columns, data },
+  options: {
+    search: {
+      showLabel: true,
+      showHelper: true,
+      showInput: true
+    },
+    serial: true
+  }
+});
+~~~~
 
-### Phase 2: Double Instructions (2D)
-- Powered by `json-instruction-double`.
-- Used when an operation involves a 2D Cartesian space (e.g. `data rows` × `columns`).
-- Maps each row and column into row elements (`<tr>`) and cell elements (`<td>`).
-- Computes cell values, applies attributes, and mounts them under `registry.base`.
+In a browser bundle, the same function is registered at:
 
----
+~~~~js
+window.ks.jsonRenderers.runInstructions.render.renderFunc
+~~~~
 
-## 4. Testing & Verification
+Pass its returned JSON tree to a DOM renderer when a browser view is needed.
 
-Because `json-renderers-run-instructions` is pure JavaScript with zero DOM dependencies, tests run in standard Node.js without any headless browsers or virtual DOM libraries:
+## API
 
-```bash
-npm test
-```
+The default export accepts an object with these fields:
+
+| Field | Purpose |
+| --- | --- |
+| <code>instructionMainKey</code> | Component family, such as <code>table</code>. |
+| <code>instructionSubKey</code> | Variant within that family, such as <code>simple</code> or <code>withFooter</code>. |
+| <code>data</code> | Values read by the selected instruction definitions. |
+| <code>options</code> | Optional nested feature choices. Omit it when no optional features are needed. |
+| <code>showLog</code> | Enables diagnostic logging; defaults to <code>false</code>. |
+
+The runtime returns the completed base specification. It throws a descriptive error when the selected definition or its base spec cannot be found.
+
+## Source and samples
+
+- [V22 entry point](src/v22/index.js)
+- [Option-to-instruction resolver](src/v22/runOptions/index.js)
+- [V16 sample launch page](samples/v16/index.html)
+- [API guide](docs/pages/api-guide.html)
+- [Execution story](docs/pages/the-story.html)
+- [Architecture](docs/pages/architecture.html)
+
+## Install
+
+~~~~bash
+npm install json-renderers-run-instructions
+~~~~
+
+## License
+
+MIT © KeshavSoft.
+

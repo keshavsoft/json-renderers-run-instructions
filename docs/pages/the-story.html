@@ -162,7 +162,7 @@
                     <li class="nav-item"><a class="nav-link " href="api-guide.html">API</a></li>
                     <li class="nav-item"><a class="nav-link text-primary fw-bold" href="playground.html"><i class="bi bi-play-circle-fill me-1"></i>Playground</a></li>
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-outline-primary nav-launch-btn" href="../../samples/v15/index.html" target="_blank">
+                        <a class="btn btn-outline-primary nav-launch-btn" href="../../samples/v16/index.html" target="_blank">
                             <i class="bi bi-rocket-takeoff-fill me-1"></i> Launch Pad &nearr;
                         </a>
                     </li>
@@ -212,11 +212,11 @@
                 </p>
                 <ol class="text-secondary ps-3">
                     <li class="mb-2"><strong>1. Select the Component:</strong> The application specifies the component using a main key and sub key (e.g. <code>table.simple</code>).</li>
-                    <li class="mb-2"><strong>2. Retrieve the Definition:</strong> The engine retrieves the corresponding definition from <code>declarative-definitions and declarative-spec</code>. The definition identifies the base specification, required instructions, and available options.</li>
+                    <li class="mb-2"><strong>2. Retrieve the Definition:</strong> The runtime looks up <code>definitions[instructionMainKey][instructionSubKey]</code>. The definition names a base spec and required <code>{ type, key }</code> descriptors.</li>
                     <li class="mb-2"><strong>3. Prepare the Base Specification:</strong> The engine creates an independent copy of the selected base structure. This becomes the starting point for building the component.</li>
-                    <li class="mb-2"><strong>4. Execute the Instructions:</strong> The engine passes the instructions, base structure, and input data to <code>json-renderers-run-instructions-steps</code>. These instructions update the base specification according to the selected component definition.</li>
-                    <li class="mb-2"><strong>5. Apply Configuration Options:</strong> The engine passes the selected options to <code>runOptions</code>. Supported features are applied to the generated specification.</li>
-                    <li class="mb-2"><strong>6. Return the Completed Specification:</strong> The engine returns the completed JSON specification. This output can then be passed to <code>jsonToDom</code> to create and display the actual HTML elements in the browser.</li>
+                    <li class="mb-2"><strong>4. Resolve Optional Features:</strong> The runtime walks the nested <code>options</code> object, finds matching single or multi instruction keys, and adds each descriptor once.</li>
+                    <li class="mb-2"><strong>5. Run the Ordered Steps:</strong> Required and option descriptors run in order through <code>json-renderers-run-instructions-steps</code>, using one shared <code>{ base, data }</code> state.</li>
+                    <li class="mb-2"><strong>6. Return the Specification:</strong> The runtime returns the completed JSON tree. A separate caller or renderer decides whether to mount it into browser DOM.</li>
                 </ol>
             </article>
 
@@ -246,7 +246,7 @@
                     <code>json-renderers-run-instructions</code> does not define every HTML component itself, nor does its main function directly create browser DOM elements.
                 </p>
                 <p>
-                    Its responsibility is to coordinate component definitions, execute their instructions, apply configuration options, and return the resulting JSON specification.
+                    Its responsibility is to coordinate component definitions, combine required and option instructions, execute them in order, and return the resulting JSON specification.
                 </p>
 
                 <div class="simple-terms-card mt-4">
@@ -256,7 +256,7 @@
                     <ul class="mb-0 text-secondary">
                         <li class="mb-2"><strong>The definition tells the engine what to build.</strong></li>
                         <li class="mb-2"><strong>The instructions tell it how to build it.</strong></li>
-                        <li class="mb-2"><strong>The options customize the result.</strong></li>
+                        <li class="mb-2"><strong>Options select additional instruction descriptors.</strong></li>
                         <li><strong>The engine executes these steps and returns the completed JSON specification.</strong></li>
                     </ul>
                 </div>
